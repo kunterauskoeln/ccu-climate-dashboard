@@ -4,6 +4,14 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
+## v0.34.1: Rund ums öffentliche Repository
+
+- Bildschirmfotos im README (mit erfundenen Daten, `docs/screenshots/`).
+- Vorlagen für Fehlermeldungen und Wünsche (zweisprachig, mit Hinweis, Passwörter und
+  IP-Adressen zu entfernen), `CONTRIBUTING.md`; Issues auf Deutsch oder Englisch.
+- Dependabot schlägt Updates nur noch monatlich vor; Sicherheitsupdates weiterhin sofort.
+- Die App selbst ist unverändert.
+
 ## v0.34.0: Vorbereitung als Open Source (GPL-3.0)
 
 - Lizenz GPL-3.0 (`LICENSE`), englisches `README.md`, `SECURITY.md`, Haftungsausschluss.

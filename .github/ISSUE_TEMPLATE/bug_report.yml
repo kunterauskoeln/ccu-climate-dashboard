@@ -1,0 +1,69 @@
+name: Fehler melden / Bug report
+description: Etwas funktioniert nicht wie erwartet. / Something does not work as expected.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Deutsch oder Englisch, beides ist willkommen. / German or English, both are welcome.
+
+        **Bitte vorher Passwörter, Tokens und IP-Adressen aus allen Angaben und Logs entfernen.**
+        Dieses Issue ist öffentlich. / **Remove passwords, tokens and IP addresses from everything
+        you paste.** This issue is public.
+
+        Sicherheitslücken bitte nicht hier, sondern vertraulich melden (Reiter *Security*). /
+        Report security issues privately via the *Security* tab, not here.
+  - type: textarea
+    id: what
+    attributes:
+      label: Was ist passiert? / What happened?
+      description: Was hast du getan, was hast du erwartet, was ist stattdessen passiert? / What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "Auf dem Server: `git -C /opt/ccu describe --tags` / On the server: `git -C /opt/ccu describe --tags`"
+      placeholder: v0.34.0
+    validations:
+      required: true
+  - type: input
+    id: ccu
+    attributes:
+      label: CCU und Firmware / CCU and firmware
+      placeholder: CCU3 mit OpenCCU 3.83.6
+    validations:
+      required: true
+  - type: textarea
+    id: devices
+    attributes:
+      label: Geräte / Devices
+      description: Thermostate und Aktoren mit Typ. / Thermostats and actuators with type.
+      placeholder: |
+        7x HmIP-WTH-1
+        1x HmIP-FALMOT-C12
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Betriebsart / Mode
+      options:
+        - Heizen / Heating
+        - Kühlen / Cooling
+        - Beides betroffen / Both
+        - Unklar / Not sure
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log-Auszug / Log excerpt
+      description: "`docker compose -f /opt/ccu/docker-compose.yml logs --tail 100 backend`. Passwörter und IP-Adressen vorher entfernen! / Remove passwords and IP addresses first!"
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Kontrolle / Checklist
+      options:
+        - label: Ich habe Passwörter, Tokens und IP-Adressen aus meinen Angaben entfernt. / I removed passwords, tokens and IP addresses.
+          required: true

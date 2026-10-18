@@ -10,6 +10,14 @@ network.
 > **The user interface and the detailed documentation are in German.** This page gives an
 > English overview; everything else is in [`docs/`](docs/README.md).
 
+![Room overview](docs/screenshots/uebersicht.png)
+
+| Room detail | Weekly schedule | Valve history |
+|---|---|---|
+| ![Room detail with setpoint dial](docs/screenshots/raum.png) | ![Weekly schedule of a room](docs/screenshots/wochenprofil.png) | ![Valve opening of all rooms over 48 hours](docs/screenshots/ventilverlauf.png) |
+
+<sub>Screenshots with made-up data.</sub>
+
 ## Features
 
 - Room tiles with actual/target temperature, humidity and valve position; room detail with
@@ -64,6 +72,12 @@ The app has **no login**. Run it only inside a trusted home network and never ex
 port 3000 to the internet; use a VPN for remote access. The CCU password lives only in
 `backend/.env` on the server. See [SECURITY.md](SECURITY.md).
 
+## Questions, bugs, ideas
+
+Issues and pull requests are welcome **in German or English**. Please use the issue
+templates and remove passwords, tokens and IP addresses from anything you paste. See
+[CONTRIBUTING.md](CONTRIBUTING.md). This is a hobby project, so answers may take a while.
+
 ## Disclaimer
 
 This is an independent hobby project. It is **not affiliated with or endorsed by eQ-3**;
@@ -84,3 +98,6 @@ Webanwendung zur Steuerung einer HomematicIP-Fußbodenheizung/-kühlung über ei
 (OpenCCU). Die vollständige Dokumentation liegt im Ordner **[`docs/`](docs/README.md)**:
 Installation auf Debian, Konfiguration, Betrieb, Bedienung, Architektur, API,
 CCU-Hintergrund und Entwicklung.
+
+Fragen, Fehlermeldungen und Ideen gerne als Issue, auf Deutsch oder Englisch (siehe
+[CONTRIBUTING.md](CONTRIBUTING.md)).

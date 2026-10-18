@@ -1,0 +1,24 @@
+name: Idee oder Wunsch / Feature request
+description: Vorschlag für eine neue Funktion oder weitere Geräte. / Suggest a new feature or device support.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Deutsch oder Englisch, beides ist willkommen. / German or English, both are welcome.
+
+        Dies ist ein Hobbyprojekt: Wünsche sind willkommen, eine Umsetzung ist aber nicht
+        garantiert. Pull Requests helfen am meisten. / This is a hobby project: ideas are
+        welcome, but there is no guarantee they get built. Pull requests help most.
+  - type: textarea
+    id: idea
+    attributes:
+      label: Was möchtest du? / What would you like?
+      description: Beschreibe, was die App können soll und wofür du es brauchst. / Describe what the app should do and why you need it.
+    validations:
+      required: true
+  - type: textarea
+    id: devices
+    attributes:
+      label: Betroffene Geräte (falls relevant) / Devices involved (if relevant)
+      description: Bei Wünschen nach weiteren Geräten bitte den genauen Typ angeben, z. B. HmIP-eTRV-2. / For device support, give the exact type, e.g. HmIP-eTRV-2.
