@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+
+# Backend venv
+venv/
+.env
+
+# Node / React
+dashboard/node_modules/
+dashboard/build/
+
+# Docker
+*.log
+*.pid
+docker-compose.override.yml
+
+# Runtime data (profile sets, profile names, valve mapping) -- lives outside
+# what git manages, see docker-compose.yml / deploy.sh
+/data/
+
+# Editor
+.vscode/
+.idea/

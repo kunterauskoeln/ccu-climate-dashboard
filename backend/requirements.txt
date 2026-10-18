@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+pydantic
+requests
+tzdata
+paho-mqtt>=2.1.0,<3

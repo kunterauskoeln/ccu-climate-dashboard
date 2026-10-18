@@ -1,0 +1,1233 @@
+:root {
+  --color-body-background: #cccccc;
+  --color-surface: Lightskyblue;
+  --color-surface-muted: #e0f4ff;
+  --color-surface-strong: #a4d3ee;
+  --color-primary: #1e40af;
+  --color-primary-strong: #1e90ff;
+  --color-text: #333;
+  --color-text-muted: #666;
+  --color-border: #87cefa;
+  --color-border-light: #eee;
+  --color-accent: DeepSkyBlue;
+  --color-active-profile-bg: #a4d3ee;
+  --color-active-profile-border: #76bde9;
+  --color-active-profile-text: #4f46e5;
+  --color-error: #d10000;
+  --chart-line: #1e40af;
+  --chart-fill: rgba(30, 64, 175, 0.2);
+  --chart-text: #333;
+  --chart-grid: rgba(0, 0, 0, 0.12);
+  --bg-image: linear-gradient(135deg, #0a3d8f 0%, #1565c0 55%, #42a5f5 100%);
+  --radius-card: 12px;
+  --radius-pill: 10px;
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-strong: 0 6px 14px rgba(0,0,0,0.12);
+  --spacing: 1rem;
+  --spacing-sm: 0.5rem;
+  --focus-ring: rgba(30,144,255,0.35);
+}
+
+.theme-dark {
+  --color-body-background: #0b1120;
+  --color-surface: #1e293b;
+  --color-surface-muted: #111827;
+  --color-surface-strong: #0f172a;
+  --color-primary: #60a5fa;
+  --color-primary-strong: #3b82f6;
+  --color-text: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-border: #475569;
+  --color-border-light: #334155;
+  --color-accent: #2563eb;
+  --color-active-profile-bg: #2563eb;
+  --color-active-profile-border: #60a5fa;
+  --color-active-profile-text: #e2e8f0;
+  --color-error: #f87171;
+  --chart-line: #93c5fd;
+  --chart-fill: rgba(59, 130, 246, 0.18);
+  --chart-text: #e2e8f0;
+  --chart-grid: rgba(148, 163, 184, 0.24);
+  --bg-image: linear-gradient(135deg, #0d1117 0%, #1f2633 100%);
+}
+
+.theme-sepia {
+  --color-body-background: #f4ede1;
+  --color-surface: #f1e4cf;
+  --color-surface-muted: #e8dac4;
+  --color-surface-strong: #d8c0a1;
+  --color-primary: #8b5e3c;
+  --color-primary-strong: #a4693d;
+  --color-text: #4b3722;
+  --color-text-muted: #6d5a48;
+  --color-border: #c6a77b;
+  --color-border-light: #e3d2b5;
+  --color-accent: #9b723a;
+  --color-active-profile-bg: #d6b691;
+  --color-active-profile-border: #b38a5d;
+  --color-active-profile-text: #3f2a17;
+  --color-error: #b23e2d;
+  --chart-line: #8b5e3c;
+  --chart-fill: rgba(139, 94, 60, 0.18);
+  --chart-text: #4b3722;
+  --chart-grid: rgba(139, 94, 60, 0.18);
+  --bg-image: linear-gradient(135deg, #efe3cc 0%, #c8a97e 100%);
+}
+
+.theme-wald {
+  --color-body-background: #08130d;
+  --color-surface: #1d3a2b;
+  --color-surface-muted: #142b1f;
+  --color-surface-strong: #10241a;
+  --color-primary: #8fdc97;
+  --color-primary-strong: #5fbf6e;
+  --color-text: #eaf5ec;
+  --color-text-muted: #9dbfa8;
+  --color-border: #2f5a43;
+  --color-border-light: #24463a;
+  --color-accent: #2f7a4f;
+  --color-active-profile-bg: #2f7a4f;
+  --color-active-profile-border: #8fdc97;
+  --color-active-profile-text: #f0fff3;
+  --color-error: #ff8a80;
+  --chart-line: #8fdc97;
+  --chart-fill: rgba(143, 220, 151, 0.18);
+  --chart-text: #eaf5ec;
+  --chart-grid: rgba(157, 191, 168, 0.22);
+  --bg-image: linear-gradient(135deg, #08130d, #183526);
+}
+
+.theme-sonne {
+  --color-body-background: #1a0a0f;
+  --color-surface: #45202a;
+  --color-surface-muted: #331820;
+  --color-surface-strong: #2b1219;
+  --color-primary: #ffa964;
+  --color-primary-strong: #ff8a3d;
+  --color-text: #fff1e6;
+  --color-text-muted: #e0b39c;
+  --color-border: #7a3a3f;
+  --color-border-light: #5a2b31;
+  --color-accent: #c4522b;
+  --color-active-profile-bg: #c4522b;
+  --color-active-profile-border: #ffa964;
+  --color-active-profile-text: #fff6ee;
+  --color-error: #ff8a80;
+  --chart-line: #ffa964;
+  --chart-fill: rgba(255, 169, 100, 0.18);
+  --chart-text: #fff1e6;
+  --chart-grid: rgba(224, 179, 156, 0.22);
+  --bg-image: linear-gradient(135deg, #1a0a0f, #4a2225);
+}
+
+.theme-graphit {
+  --color-body-background: #000000;
+  --color-surface: #131416;
+  --color-surface-muted: #0b0c0d;
+  --color-surface-strong: #0b0c0d;
+  --color-primary: #9dbcff;
+  --color-primary-strong: #7aa2f7;
+  --color-text: #f2f2f3;
+  --color-text-muted: #8b8f96;
+  --color-border: #2a2c30;
+  --color-border-light: #1e2024;
+  --color-accent: #26314a;
+  --color-active-profile-bg: #26314a;
+  --color-active-profile-border: #9dbcff;
+  --color-active-profile-text: #e6eeff;
+  --color-error: #ff7b7b;
+  --chart-line: #9dbcff;
+  --chart-fill: rgba(157, 188, 255, 0.16);
+  --chart-text: #f2f2f3;
+  --chart-grid: rgba(139, 143, 150, 0.22);
+  --bg-image: linear-gradient(#000000, #000000);
+}
+
+.theme-ozean {
+  --color-body-background: #031419;
+  --color-surface: #0e4550;
+  --color-surface-muted: #0a3540;
+  --color-surface-strong: #08303a;
+  --color-primary: #63e6d2;
+  --color-primary-strong: #2bc4b0;
+  --color-text: #e6fbff;
+  --color-text-muted: #93cdd6;
+  --color-border: #1c6a78;
+  --color-border-light: #155562;
+  --color-accent: #14808f;
+  --color-active-profile-bg: #14808f;
+  --color-active-profile-border: #63e6d2;
+  --color-active-profile-text: #f0feff;
+  --color-error: #ff8a80;
+  --chart-line: #63e6d2;
+  --chart-fill: rgba(99, 230, 210, 0.18);
+  --chart-text: #e6fbff;
+  --chart-grid: rgba(147, 205, 214, 0.22);
+  --bg-image: linear-gradient(135deg, #031419, #0b3a45);
+}
+
+/* Erhaben: Stufen "leicht" / "stark" (Einstellungen -> Design). Die Schatten-
+   Variablen enthalten helle Oberkante + dunkle Unterkante (inset), die Klassen
+   unten legen zusätzlich einen leichten Verlauf über Karten und Schaltflächen. */
+.elev-light {
+  --shadow-card: 0 8px 16px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.14);
+  --shadow-strong: 0 12px 22px rgba(0, 0, 0, 0.24), 0 2px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32), inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+  --elev-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(0, 0, 0, 0.05));
+  --elev-lift: -1px;
+}
+
+.elev-strong {
+  --shadow-card: 0 16px 30px rgba(0, 0, 0, 0.34), 0 3px 5px rgba(0, 0, 0, 0.26),
+    inset 0 2px 0 rgba(255, 255, 255, 0.42), inset 0 -3px 0 rgba(0, 0, 0, 0.24),
+    inset 1px 0 0 rgba(255, 255, 255, 0.12);
+  --shadow-strong: 0 22px 38px rgba(0, 0, 0, 0.38), 0 4px 7px rgba(0, 0, 0, 0.28),
+    inset 0 2px 0 rgba(255, 255, 255, 0.46), inset 0 -3px 0 rgba(0, 0, 0, 0.26),
+    inset 1px 0 0 rgba(255, 255, 255, 0.14);
+  --elev-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.17), rgba(0, 0, 0, 0.1));
+  --elev-lift: -2px;
+}
+
+.elev-light .room-card,
+.elev-light .back-card,
+.elev-light .profile-mini-card-vertical,
+.elev-light .add-block-button,
+.elev-light .save-card,
+.elev-strong .room-card,
+.elev-strong .back-card,
+.elev-strong .profile-mini-card-vertical,
+.elev-strong .add-block-button,
+.elev-strong .save-card {
+  background-image: var(--elev-gradient);
+}
+
+.elev-light .room-card,
+.elev-light .back-card,
+.elev-strong .room-card,
+.elev-strong .back-card {
+  transform: translateY(var(--elev-lift));
+}
+
+/* Schaltflächen wirken beim Antippen eingedrückt */
+.elev-light .profile-mini-card-vertical:active,
+.elev-light .add-block-button:active,
+.elev-light .save-card:active,
+.elev-strong .profile-mini-card-vertical:active,
+.elev-strong .add-block-button:active,
+.elev-strong .save-card:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.38);
+}
+
+/* Ventilöffnung (Raumkachel + Raumdetail) */
+.valve-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.valve-label {
+  min-width: 3.4rem;
+  color: var(--color-text-muted);
+}
+
+.valve-track {
+  flex: 1;
+  height: 8px;
+  border-radius: 6px;
+  background: var(--color-surface-strong);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.valve-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.valve-percent {
+  min-width: 3.2rem;
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Inhaltsbreite: auf großen Bildschirmen zentriert statt links klebend */
+:root {
+  --content-max-width: 1200px;
+}
+
+.room-grid {
+  display: grid;
+  gap: var(--spacing);
+  padding: var(--spacing);
+  grid-template-columns: 1fr; /* erzwingt einspaltig */
+  align-items: start; /* Kacheln nur so hoch wie ihr Inhalt */
+  box-sizing: border-box;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+/* Seiten, deren Kacheln je Zeile gleich hoch sein sollen (Start, Einstellungen,
+   Profilseite). Auf dem Handy (eine Kachel pro Zeile) ändert das nichts. */
+.room-grid.equal-height {
+  align-items: stretch;
+}
+
+/* Alle Kacheln der Seite gleich hoch, über alle Reihen hinweg (Heizprofile): die
+   Kopfleiste behält ihre eigene Höhe, jede weitere Reihe wird so hoch wie die höchste.
+   Nur ab Tablet-Breite; auf dem Handy steht ohnehin eine Kachel pro Zeile. */
+@media (min-width: 600px) {
+  .room-grid.uniform-rows {
+    align-items: stretch;
+    grid-template-rows: auto;
+    grid-auto-rows: 1fr;
+  }
+}
+
+/* Leerzeile, die Schaltflächen nebeneinanderstehender Kacheln auf eine Höhe bringt;
+   auf dem Handy (Kacheln untereinander) ausgeblendet */
+.subtitle-spacer {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .subtitle-spacer {
+    display: block;
+  }
+}
+
+/* zusätzlich: kürzere Kacheln zentrieren ihren Inhalt senkrecht (Start, Profilseite) */
+.room-grid.center-cards > .room-card {
+  justify-content: center;
+}
+
+/* Kopfleiste (Zurück + Titel) über alle Spalten */
+.room-grid > .back-card {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 600px) {
+  .room-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.room-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-icon {
+  font-size: 1.8rem;
+  color: var(--color-text);
+}
+
+.room-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.room-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.temp-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.temp-block {
+  text-align: center;
+}
+
+.temp-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+
+.temp-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.room-humidity-top {
+  font-size: 1rem;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+body {
+  background-image: var(--bg-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: var(--color-body-background);
+}
+
+.slider-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dropdown-block label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.dropdown-block select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-light);
+  font-size: 1rem;
+}
+
+.setting-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.room-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.room-icon-right {
+  margin-left: auto;
+}
+
+.profile-list-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Profil-Schaltflächen in HeatingProfiles */
+.profile-mini-card-vertical,
+button.profile-mini-card-vertical {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 10px 12px;
+  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover-Effekt */
+.profile-mini-card-vertical:hover {
+  background: var(--color-surface-strong);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Aktives Profil */
+.active-profile {
+  background: var(--color-active-profile-bg) !important;
+  border: 2px solid var(--color-active-profile-border);
+  color: var(--color-active-profile-text);
+  box-shadow: 0 4px 10px rgba(79,70,229,0.3);
+}
+
+/* Einheitlicher Stil für alle Dropdowns */
+select {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: var(--color-text);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover-Effekt */
+select:hover {
+  box-shadow: var(--shadow-strong);
+}
+
+/* Fokus-Effekt */
+select:focus {
+  outline: none;
+  border-color: var(--color-primary-strong);
+  box-shadow: 0 0 0 3px rgba(30,144,255,0.3);
+}
+
+.setting-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.6rem;
+}
+
+.setting-toggle input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-primary);
+}
+
+.setting-help {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.profile-visual-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Tagesgrafiken eines Profils: ab Tablet-Breite unter den Bedienkacheln über die
+   volle Breite, 4 nebeneinander (dann 3 in der nächsten Zeile). */
+@media (min-width: 600px) {
+  .profile-visual-container {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing);
+    align-items: start;
+  }
+}
+
+@media (min-width: 1100px) {
+  .profile-visual-container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.profile-day-card {
+  background: var(--color-surface);
+  padding: 16px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.profile-day-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+
+.profile-timeline {
+  position: relative;
+  height: 40px;
+  background: var(--color-surface-muted);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profile-block-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.profile-block-label {
+  background: rgba(255,255,255,0.7);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.profile-day-chart-card {
+  background: var(--color-surface);
+  padding: 16px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.profile-day-chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+
+.back-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* WICHTIG */
+  background: var(--color-surface);
+  padding: 16px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-left {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.back-center {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 0 12px;
+}
+
+.back-right {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--color-text);
+}
+
+.time-block-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.time-block-row:last-child {
+  border-bottom: none;
+}
+
+.time-range {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.add-block-button {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  padding: 10px 0;
+}
+
+.theme-toggle-button {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+  background: var(--color-surface-muted);
+  transform: translateY(-1px);
+}
+
+button.theme-toggle-button,
+button.profile-mini-card-vertical {
+  border: none;
+  font: inherit;
+}
+
+/*==================Time Picker===================== */
+
+
+.time-picker-container {
+  background: var(--color-accent);
+  border-radius: var(--radius-card);
+  padding: var(--spacing);
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.time-picker-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.time-picker-wheel-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.time-picker-wheel {
+  height: 160px;                 /* sichtbarer Bereich */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  text-align: center;
+
+  padding-top: 60px;             /* sorgt für zentrierte Mitte */
+  padding-bottom: 60px;
+
+  scroll-snap-type: y mandatory; /* snappt auf Items */
+}
+
+.time-picker-wheel::-webkit-scrollbar {
+  display: none;
+}
+
+.time-picker-item {
+  height: 40px;                  /* feste Höhe */
+  line-height: 40px;
+  font-size: 1.4rem;
+  opacity: 0.4;
+  scroll-snap-align: center;     /* ⭐ sorgt für exakte Zentrierung */
+}
+
+.time-picker-item.active {
+  font-size: 1.8rem;
+  font-weight: bold;
+  opacity: 1;
+  color: var(--color-text);
+}
+
+/*==================Time Picker===================== */
+
+/*==================Temp Picker===================== */
+
+.temp-picker-container {
+  background: var(--color-accent);
+  border-radius: var(--radius-card);
+  padding: var(--spacing);
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.temp-picker-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.save-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing);
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+/* clickable UI labels: don't let long-press / double-tap select the text
+   (which triggers the browser's "look up / define" popup on mobile) */
+.back-card,
+.save-card,
+.add-block-button,
+.time-block-row,
+.profile-mini-card-vertical,
+.room-card,
+.room-name,
+.setting-name,
+.time-picker-item,
+.time-range,
+.temp-value {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.save-card:hover,
+.back-card:hover,
+.profile-mini-card-vertical:hover,
+.add-block-button:hover,
+.room-card:hover,
+.time-block-row:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
+}
+
+.back-card,
+.save-card,
+.add-block-button,
+.time-block-row,
+.profile-mini-card-vertical,
+select,
+.time-picker-close,
+.temp-picker-close {
+  outline: none;
+}
+
+.back-card:focus-visible,
+.save-card:focus-visible,
+.add-block-button:focus-visible,
+.time-block-row:focus-visible,
+.profile-mini-card-vertical:focus-visible,
+select:focus-visible,
+.time-picker-close:focus-visible,
+.temp-picker-close:focus-visible {
+  outline: 3px solid var(--color-primary-strong);
+  outline-offset: 3px;
+}
+
+.validation-error {
+  color: var(--color-error);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/*==================Temp Picker===================== */
+
+/* busy overlay + spinner */
+@keyframes ccu-spin { to { transform: rotate(360deg); } }
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  animation: ccu-spin 0.8s linear infinite;
+  flex: none;
+}
+
+.busy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* Hinweis zur Profilübertragung (App-weit, TransferBanner) */
+.transfer-banner {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: min(100% - 2 * var(--spacing), var(--content-max-width) - 2 * var(--spacing));
+  margin: var(--spacing) auto 0;
+  padding: 0.6rem 0.8rem;
+  box-sizing: border-box;
+  border-radius: var(--radius-card);
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.transfer-banner.has-error {
+  border-color: var(--color-error);
+}
+
+.transfer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.transfer-detail {
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+.transfer-track {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--color-surface-muted);
+  overflow: hidden;
+}
+
+.transfer-fill {
+  height: 100%;
+  background: var(--color-primary-strong);
+  transition: width 0.4s ease;
+}
+
+.transfer-action,
+.transfer-close {
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.transfer-action {
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+.transfer-action:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.transfer-close {
+  width: 1.8rem;
+  height: 1.8rem;
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+/* Änderungshistorie: eine Liste über die volle Breite, ein Eintrag je Zeile */
+.history-list {
+  grid-column: 1 / -1;
+  gap: 0.75rem;
+}
+
+.history-row {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.6rem;
+}
+
+.history-head {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.history-chip {
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+}
+
+.history-title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.history-summary {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.history-confirm {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Kachel über die volle Breite (geöffnete Betriebsart, Import mit Prüfergebnis) */
+.room-card.card-wide {
+  grid-column: 1 / -1;
+}
+
+/* Zeitgesteuertes Umschalten Heizen/Kühlen */
+.schedule-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.8rem;
+}
+
+.schedule-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+}
+
+.schedule-label {
+  min-width: 8rem;
+  margin-top: 0;
+}
+
+.schedule-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.schedule-fields select {
+  padding: 6px 10px;
+}
+
+.schedule-fields select:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.schedule-at {
+  color: var(--color-text-muted);
+}
+
+.backup-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.6rem;
+}
+
+.backup-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.backup-errors {
+  color: var(--color-error);
+}
+
+/* Rückfrage vor dem Umschalten Heizen/Kühlen */
+.climate-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-error);
+}
+
+/* Taupunktüberwachung */
+.dew-banner-knapp {
+  border-color: #d39b00;
+}
+
+.dew-banner-gefahr {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.room-card.dew-border-knapp {
+  box-shadow: inset 4px 0 0 #d39b00, var(--shadow-card);
+}
+
+.room-card.dew-border-gefahr {
+  box-shadow: inset 4px 0 0 var(--color-error), var(--shadow-card);
+}
+
+.dew-summary {
+  gap: 0.5rem;
+}
+
+.dew-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.5rem;
+}
+
+.dew-row,
+.dew-flow > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dew-key {
+  color: var(--color-text-muted);
+}
+
+.dew-value {
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.dew-chip {
+  padding: 1px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  background: var(--color-surface-strong);
+  color: var(--color-text);
+}
+
+.dew-chip-ok {
+  background: #2e7d32;
+  color: #fff;
+}
+
+.dew-chip-knapp {
+  background: #d39b00;
+  color: #1d1d1d;
+}
+
+.dew-chip-gefahr {
+  background: var(--color-error);
+  color: #fff;
+}
+
+/* Datensicherung: Liste der gespeicherten Sicherungen */
+.backup-files {
+  display: flex;
+  flex-direction: column;
+}
+
+.backup-file {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  border-top: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+}
+
+.backup-file-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.backup-file-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.backup-file-actions .profile-mini-card-vertical {
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+}
+
+/* Abwesenheit */
+.absence-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.absence-start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.absence-field select,
+.absence-field input[type="datetime-local"] {
+  max-width: 22rem;
+}
+
+input[type="datetime-local"] {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 8px 12px;
+  font: inherit;
+  color: var(--color-text);
+}
+
+input[type="datetime-local"]:disabled {
+  opacity: 0.5;
+}
+
+/* Ventilverlauf */
+.valve-range {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.valve-range .profile-mini-card-vertical,
+.valve-range button.profile-mini-card-vertical {
+  flex: 1;
+  width: auto;
+  text-align: center;
+}
+
+.valve-chart {
+  position: relative;
+  height: 420px;
+}
+
+@media (max-width: 599px) {
+  .valve-chart {
+    height: 340px;
+  }
+}

@@ -1,0 +1,16 @@
+# Keep line endings sane across the Windows dev box and the Linux target.
+* text=auto
+
+# Must stay LF regardless of platform (executed / parsed on Linux)
+*.sh            text eol=lf
+Dockerfile      text eol=lf
+*.conf          text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.svg binary

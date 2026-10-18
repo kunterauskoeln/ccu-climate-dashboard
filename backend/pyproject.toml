@@ -1,0 +1,23 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes (echte Fehler), I: Import-Sortierung,
+# UP: veraltete Syntax, B: bugbear (typische Fallstricke), RUF: ruff-eigene Regeln,
+# S110/S112: kein stilles `except: pass/continue` (Fehler müssen mindestens geloggt werden)
+select = ["E", "W", "F", "I", "UP", "B", "RUF", "S110", "S112"]
+# Typografische Zeichen (–, ×, …) in deutschen Kommentaren sind gewollt
+ignore = ["RUF001", "RUF002", "RUF003", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Skripte manipulieren sys.path vor dem Import
+# (S110: Logout am Skriptende, Fehlschlag dort ist egal)
+"scripts/*" = ["E402", "S110"]
+
+[tool.mypy]
+mypy_path = "src"
+packages = ["app"]
+namespace_packages = true
+ignore_missing_imports = true

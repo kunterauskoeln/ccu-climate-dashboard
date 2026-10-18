@@ -1,0 +1,45 @@
+services:
+  backend:
+    build: ./backend
+    container_name: ccu-backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    expose:
+      - "8000"
+    environment:
+      ROOT_PATH: /api          # served behind nginx at /api
+      VALVE_CHANNELS_FILE: /app/app/data/valve_channels.json
+    env_file:
+      - ./backend/.env
+    volumes:
+      # One directory bind instead of three single-file binds: a missing
+      # sub-path used to become a directory (Docker's default for a missing
+      # bind target), which broke the app; deploy.sh now seeds this directory
+      # instead. It also means the checkout no longer has to live at the
+      # fixed path /opt/ccu for this to work.
+      - ./data:/app/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/system/health').status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: always
+
+  dashboard:
+    build:
+      context: ./dashboard
+    container_name: ccu-dashboard
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    healthcheck:
+      # 127.0.0.1, not "localhost": nginx.conf only listens on IPv4 (listen
+      # 80;), and busybox wget resolves "localhost" to ::1 first in this
+      # image -- that connection is refused, real (IPv4) traffic is
+      # unaffected, but the healthcheck itself reported "unhealthy".
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: always

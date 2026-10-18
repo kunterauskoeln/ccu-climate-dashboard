@@ -1,0 +1,17 @@
+# Secrets – never ship into the image context
+.env
+.env.*
+!.env.example
+
+# Python cruft
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# VCS / docs
+.git/
+*.md

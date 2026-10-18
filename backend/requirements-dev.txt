@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest
+httpx2
+ruff==0.16.10
+mypy==2.4.0
+jinja2
