@@ -10,6 +10,8 @@ installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung
 - Vorlagen für Fehlermeldungen und Wünsche (zweisprachig, mit Hinweis, Passwörter und
   IP-Adressen zu entfernen), `CONTRIBUTING.md`; Issues auf Deutsch oder Englisch.
 - Dependabot schlägt Updates nur noch monatlich vor; Sicherheitsupdates weiterhin sofort.
+- Sicherheitswarnung im Bauwerkzeug behoben: `postcss-selector-parser` (unter Tailwind)
+  per `overrides` auf 7.1.6; die gebaute Oberfläche ist byte-gleich.
 - Die App selbst ist unverändert.
 
 ## v0.34.0: Vorbereitung als Open Source (GPL-3.0)

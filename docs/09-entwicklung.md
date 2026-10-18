@@ -122,9 +122,10 @@ Nebenwirkungen (`client.xmlrpc.set_calls`, `profile_sets.get_...`) prüfen.
 Alle Schritte sind **verbindlich** (ein Fehler lässt den Lauf scheitern). Ergebnis mit der
 GitHub-CLI: `gh run list --branch <zweig>`.
 
-**Dependabot** (`.github/dependabot.yml`) schlägt Updates als Pull Requests vor: Python-
-und npm-Pakete jeden Montag (kleine Updates je Ökosystem gebündelt, große einzeln),
-GitHub-Actions und Docker-Basisimages monatlich. Jeder Vorschlag durchläuft die CI; erst
+**Dependabot** (`.github/dependabot.yml`) schlägt Updates als Pull Requests vor, einmal
+im Monat: Python- und npm-Pakete (kleine Updates je Ökosystem gebündelt, große einzeln),
+GitHub-Actions und Docker-Basisimages. Sicherheitsupdates kommen unabhängig davon sofort.
+Jeder Vorschlag durchläuft die CI; erst
 danach entscheidet man über das Übernehmen. Große Updates (neue Hauptversion) können
 Codeänderungen brauchen und gehören in einen eigenen Zweig mit Test auf dem Server.
 
