@@ -4,6 +4,13 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
+## v0.35.0: Thema Weiß und Glanz-Effekt
+
+- Neues Thema **Weiß**: weiße Karten auf hellgrauem Grund, blaue Akzente.
+- Neuer Effekt **Glanz** (*Einstellungen → Design*, Aus/An): Lichtreflex wie auf Glas über
+  Karten und Schaltflächen, mit Erhaben kombinierbar. Wird wie Thema und Erhaben pro Gerät
+  im Browser gespeichert.
+
 ## v0.34.1: Rund ums öffentliche Repository
 
 - Bildschirmfotos im README (mit erfundenen Daten, `docs/screenshots/`).

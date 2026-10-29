@@ -393,11 +393,12 @@ Neuladen beim Fokussieren des Fensters, 1 Wiederholung.
   (`theme-dark`, `theme-wald`, …) auf `<html>`, die **CSS-Variablen** setzt (Farben,
   Diagrammfarben, Hintergrund).
 - Der Erhaben-Effekt ist eine zweite Klasse (`elev-light`, `elev-strong`), die Schatten- und
-  Verlaufsvariablen überschreibt.
+  Verlaufsvariablen überschreibt. Der Glanz ist eine dritte, unabhängige Klasse
+  (`gloss-on`), die einen Reflex über den Erhaben-Verlauf legt.
 - **Breite Bildschirme:** Ab 600 px mehrspaltiges Raster; Inhalt maximal 1200 px und
   zentriert; Kopfleiste über alle Spalten; Zusatzklassen `equal-height` und `center-cards`
   für gleich hohe Kacheln.
-- Im Browser gespeichert (`localStorage`, pro Gerät): `theme`, `elevation`,
+- Im Browser gespeichert (`localStorage`, pro Gerät): `theme`, `elevation`, `gloss`,
   `transferBannerDismissed`.
 
 ## 6.6 Fehlerbehandlung

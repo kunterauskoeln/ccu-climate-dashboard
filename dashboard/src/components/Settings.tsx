@@ -15,7 +15,7 @@ import "../styles/styles.css";
 
 export default function Settings() {
   const navigate = useNavigate();
-  const { theme, elevation } = useTheme();
+  const { theme, elevation, gloss } = useTheme();
   const currentThemeLabel = AVAILABLE_THEMES.find((item) => item.id === theme)?.label ?? theme;
   const elevationLabel = ELEVATION_LEVELS.find((item) => item.id === elevation)?.label ?? elevation;
 
@@ -269,6 +269,9 @@ export default function Settings() {
           </div>
           <div className="room-subtitle">
             Erhaben: {elevationLabel}
+          </div>
+          <div className="room-subtitle">
+            Glanz: {gloss ? "An" : "Aus"}
           </div>
         </div>
       </div>

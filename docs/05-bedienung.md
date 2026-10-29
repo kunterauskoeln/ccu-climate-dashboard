@@ -268,10 +268,12 @@ anderen Modus gehören. Die Historie hält höchstens 200 Einträge; ältere fal
 (pro Gerät); du kannst mehrere Themen nacheinander ansehen und die Seite mit dem
 Zurück-Pfeil selbst verlassen.
 
-- **Themen:** Hellblau, Dunkel, Sepia, Wald, Sonnenuntergang, Graphit (echtes Schwarz,
-  sparsam auf OLED-Displays), Ozean.
+- **Themen:** Hellblau, Weiß, Dunkel, Sepia, Wald, Sonnenuntergang, Graphit (echtes
+  Schwarz, sparsam auf OLED-Displays), Ozean.
 - **Erhaben:** **Aus**, **Leicht**, **Stark**. Karten und Schaltflächen erhalten Lichtkante,
   Schatten und leichten Verlauf; Schaltflächen wirken beim Tippen eingedrückt.
+- **Glanz:** **Aus** oder **An**. Legt einen Lichtreflex wie auf Glas über Karten und
+  Schaltflächen; lässt sich mit jeder Erhaben-Stufe kombinieren.
 
 ## 5.11 Geräte
 
