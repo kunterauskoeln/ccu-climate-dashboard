@@ -4,8 +4,12 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
-## v0.36.0: Warnung bei nicht übertragenen Einstellungen, Heizgruppen-Skripte
+## v0.35.0: Thema Weiß, Glanz, Warnung bei nicht übertragenen Einstellungen
 
+- Neues Thema **Weiß**: fast weiße Karten auf hellgrauem Grund, blaue Akzente.
+- Neuer Effekt **Glanz** (*Einstellungen → Design*, Aus/An): Glasknopf-Reflex über Karten
+  und Schaltflächen, mit Erhaben kombinierbar, Stärke je Thema. Wird wie Thema und Erhaben
+  pro Gerät im Browser gespeichert.
 - **Einstellungen nicht übertragen:** Steht „Konfiguration ausstehend“ an einem Gerät länger
   als 30 Minuten (`CONFIG_PENDING_WARN_MINUTES`), wird es ein Gerätehinweis (Banner,
   Geräteseite, Home Assistant). Raumkachel und Profilseite warnen, dass der gezeigte Plan

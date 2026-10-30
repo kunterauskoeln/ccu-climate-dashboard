@@ -27,7 +27,7 @@ gespeicherten Plänen weiter.**
 | Taupunkt | Im Kühlbetrieb Taupunkt je Raum gegen die Vorlauftemperatur (MQTT-Sensor), Ampel und Warnbalken bei Kondensgefahr |
 | Home Assistant | Zustand per MQTT-Discovery als Gerät „CCU Dashboard“, z. B. für Push-Nachrichten bei Kondensgefahr |
 | Geräte | Liste aller angelernten Geräte (Adresse, Typ, Schnittstelle) |
-| Design | 7 Themen (Hellblau, Dunkel, Sepia, Wald, Sonnenuntergang, Graphit, Ozean) und **Erhaben-Effekt** (Aus/Leicht/Stark) |
+| Design | 8 Themen (Hellblau, Weiß, Dunkel, Sepia, Wald, Sonnenuntergang, Graphit, Ozean), **Erhaben-Effekt** (Aus/Leicht/Stark) und **Glanz** (Aus/An) |
 | Betrieb | Health-Endpunkt, automatischer Neustart, eigener Datenordner (von Updates unberührt), Sicherungskopie der Profildaten, Logging |
 
 ## 1.3 Systemlandschaft

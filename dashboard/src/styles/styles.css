@@ -166,6 +166,34 @@
   --bg-image: linear-gradient(135deg, #031419, #0b3a45);
 }
 
+/* Weiß: fast weiße Karten (leicht durchscheinend, damit der Glanz sichtbar bleibt)
+   auf hellgrauem Grund. Die Karten heben sich nur über den Schatten ab, deshalb
+   ist er hier etwas kräftiger als in den anderen Themen. */
+.theme-weiss {
+  --color-body-background: #f3f4f6;
+  --color-surface: rgba(255, 255, 255, 0.92);
+  --color-surface-muted: #f5f7fa;
+  --color-surface-strong: #e3e8ef;
+  --color-primary: #1d4ed8;
+  --color-primary-strong: #2563eb;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-border: #d1d9e2;
+  --color-border-light: #e7ebf0;
+  --color-accent: #2563eb;
+  --color-active-profile-bg: #dbe6fd;
+  --color-active-profile-border: #2563eb;
+  --color-active-profile-text: #1e3a8a;
+  --color-error: #c81e1e;
+  --chart-line: #1d4ed8;
+  --chart-fill: rgba(29, 78, 216, 0.12);
+  --chart-text: #374151;
+  --chart-grid: rgba(15, 23, 42, 0.1);
+  --bg-image: linear-gradient(135deg, #d1d5db 0%, #e5e7eb 55%, #f9fafb 100%);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 14px rgba(15, 23, 42, 0.07);
+  --shadow-strong: 0 2px 4px rgba(15, 23, 42, 0.1), 0 8px 20px rgba(15, 23, 42, 0.1);
+}
+
 /* Erhaben: Stufen "leicht" / "stark" (Einstellungen -> Design). Die Schatten-
    Variablen enthalten helle Oberkante + dunkle Unterkante (inset), die Klassen
    unten legen zusätzlich einen leichten Verlauf über Karten und Schaltflächen. */
@@ -218,6 +246,38 @@
 .elev-strong .save-card:active {
   transform: translateY(1px);
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.38);
+}
+
+/* Glanz (Einstellungen -> Design, an/aus): Glasknopf-Reflex, obere Hälfte hell
+   mit klarer Kante in der Mitte. Unabhängig von Erhaben; ist das an, liegt dessen
+   Verlauf unter dem Reflex. Stärke je Thema: hell kräftig, dunkel zurückhaltend. */
+.gloss-on {
+  --gloss-top: 0.45;
+  --gloss-mid: 0.16;
+  --gloss-layer: linear-gradient(180deg, rgba(255, 255, 255, var(--gloss-top)) 0%,
+    rgba(255, 255, 255, var(--gloss-mid)) 48%, rgba(255, 255, 255, 0) 52%);
+}
+
+.gloss-on.theme-weiss {
+  --gloss-top: 0.6;
+  --gloss-mid: 0.21;
+}
+
+.gloss-on.theme-dark,
+.gloss-on.theme-wald,
+.gloss-on.theme-sonne,
+.gloss-on.theme-graphit,
+.gloss-on.theme-ozean {
+  --gloss-top: 0.18;
+  --gloss-mid: 0.06;
+}
+
+.gloss-on .room-card,
+.gloss-on .back-card,
+.gloss-on .profile-mini-card-vertical,
+.gloss-on .add-block-button,
+.gloss-on .save-card {
+  background-image: var(--gloss-layer), var(--elev-gradient, none);
 }
 
 /* Ventilöffnung (Raumkachel + Raumdetail) */

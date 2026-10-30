@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type ThemeMode =
-  | "light" | "dark" | "sepia"
+  | "light" | "weiss" | "dark" | "sepia"
   | "wald" | "sonne" | "graphit" | "ozean";
 
 export const AVAILABLE_THEMES: Array<{ id: ThemeMode; label: string }> = [
   { id: "light", label: "Hellblau" },
+  { id: "weiss", label: "Weiß" },
   { id: "dark", label: "Dunkel" },
   { id: "sepia", label: "Sepia" },
   { id: "wald", label: "Wald" },
@@ -29,6 +30,8 @@ type ThemeContextType = {
   toggleTheme: () => void;
   elevation: Elevation;
   setElevation: (level: Elevation) => void;
+  gloss: boolean;
+  setGloss: (on: boolean) => void;
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -58,19 +61,22 @@ function initialElevation(): Elevation {
 export function ThemeProvider({ children }: { children?: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemeMode>(initialTheme);
   const [elevation, setElevation] = useState<Elevation>(initialElevation);
+  const [gloss, setGloss] = useState<boolean>(() => readStorage("gloss") === "true");
 
   useEffect(() => {
     const classList = document.documentElement.classList;
     classList.remove(...AVAILABLE_THEMES.map((item) => `theme-${item.id}`));
     classList.remove(...ELEVATION_LEVELS.map((item) => `elev-${item.id}`));
     classList.add(`theme-${theme}`, `elev-${elevation}`);
+    classList.toggle("gloss-on", gloss);
     try {
       localStorage.setItem("theme", theme);
       localStorage.setItem("elevation", elevation);
+      localStorage.setItem("gloss", String(gloss));
     } catch {
       /* per-viewer convenience only */
     }
-  }, [theme, elevation]);
+  }, [theme, elevation, gloss]);
 
   const toggleTheme = () =>
     setThemeState((current) => (current === "dark" ? "light" : "dark"));
@@ -83,7 +89,9 @@ export function ThemeProvider({ children }: { children?: React.ReactNode }) {
         setTheme: setThemeState,
         toggleTheme,
         elevation,
-        setElevation
+        setElevation,
+        gloss,
+        setGloss
       }}
     >
       {children}

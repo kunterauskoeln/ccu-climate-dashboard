@@ -6,7 +6,7 @@ import "../styles/styles.css";
 
 export default function ThemeSettings() {
   const navigate = useNavigate();
-  const { theme, setTheme, elevation, setElevation } = useTheme();
+  const { theme, setTheme, elevation, setElevation, gloss, setGloss } = useTheme();
 
   return (
     <div className="room-grid">
@@ -49,6 +49,24 @@ export default function ThemeSettings() {
         <p className="setting-help">
           Lässt Karten und Schaltflächen plastisch vom Hintergrund abheben: mit Lichtkante,
           Schatten und leichtem Verlauf. Stark wirkt am deutlichsten.
+        </p>
+
+        <div className="setting-name">Glanz</div>
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          {[false, true].map((on) => (
+            <button
+              key={String(on)}
+              className={`profile-mini-card-vertical ${gloss === on ? "active-profile" : ""}`}
+              style={{ flex: 1, textAlign: "center" }}
+              onClick={() => setGloss(on)}
+            >
+              {on ? "An" : "Aus"}
+            </button>
+          ))}
+        </div>
+        <p className="setting-help">
+          Legt einen Lichtreflex wie auf Glas über Karten und Schaltflächen. Lässt sich
+          mit Erhaben kombinieren.
         </p>
       </div>
     </div>
