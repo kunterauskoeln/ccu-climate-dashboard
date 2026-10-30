@@ -4,6 +4,16 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
+## v0.36.0: Warnung bei nicht übertragenen Einstellungen, Heizgruppen-Skripte
+
+- **Einstellungen nicht übertragen:** Steht „Konfiguration ausstehend“ an einem Gerät länger
+  als 30 Minuten (`CONFIG_PENDING_WARN_MINUTES`), wird es ein Gerätehinweis (Banner,
+  Geräteseite, Home Assistant). Raumkachel und Profilseite warnen, dass der gezeigte Plan
+  noch nicht am Thermostat angekommen ist. Anlass: Ein Thermostat hing fünf Wochen
+  unbemerkt, weil zwei Einstellungen als Text gespeichert waren (CCU-Hintergrund 8.4).
+- Skripte `compare_group_profiles.py` (nur lesen) und `sync_group_profiles.py`: Wochenprofile
+  von Thermostat und Heizgruppe vergleichen bzw. vom Thermostat in die Gruppe kopieren.
+
 ## v0.34.1: Rund ums öffentliche Repository
 
 - Bildschirmfotos im README (mit erfundenen Daten, `docs/screenshots/`).

@@ -34,6 +34,7 @@ docker compose up -d --force-recreate backend
 | `AUTO_BACKUP_KEEP` | nein | So viele tägliche Sicherungen bleiben erhalten. Standard `14` | `14` |
 | `DUTY_CYCLE_WARN` | nein | Funkauslastung der CCU (%), ab der die App einen Hinweis zeigt. Standard `60` | `60` |
 | `DUTY_CYCLE_LIMIT` | nein | Funkauslastung (%), ab der Profilübertragungen anhalten. Standard `70` | `70` |
+| `CONFIG_PENDING_WARN_MINUTES` | nein | So viele Minuten darf „Konfiguration ausstehend“ an einem Gerät bestehen, bevor die App warnt. Standard `30` | `30` |
 | `HA_DISCOVERY` | nein | `0` schaltet die Veröffentlichung für Home Assistant ab (3.7). Standard an, sobald MQTT eingerichtet ist | `1` |
 | `HA_DISCOVERY_PREFIX` | nein | Discovery-Präfix von Home Assistant. Standard `homeassistant` | `homeassistant` |
 | `MQTT_BASE_TOPIC` | nein | Themen, unter denen die App veröffentlicht (`…/state`, `…/status`). Standard `ccu-dashboard` | `ccu-dashboard` |
@@ -193,7 +194,7 @@ Discovery** an. Unter *Einstellungen → Geräte & Dienste → MQTT* erscheint d
 | `binary_sensor.ccu_dashboard_kuhlbetrieb` | An im Kühlbetrieb |
 | `binary_sensor.ccu_dashboard_abwesenheit` | An während einer Abwesenheit (einschließlich Rückkehr) |
 | `sensor.ccu_dashboard_abwesenheit_bis` | Ende der laufenden Abwesenheit (Zeitstempel) |
-| `binary_sensor.ccu_dashboard_gerateproblem` | An bei einem Gerätehinweis (Batterie, nicht erreichbar, Funk-Limit, hohe Funkauslastung) |
+| `binary_sensor.ccu_dashboard_gerateproblem` | An bei einem Gerätehinweis (Batterie, nicht erreichbar, Funk-Limit, hohe Funkauslastung, Einstellungen nicht übertragen) |
 | `sensor.ccu_dashboard_gerate_meldung` | Text der Hinweise wie in der App |
 | `sensor.ccu_dashboard_ccu_funkauslastung` | Duty Cycle der CCU (%) |
 | je Gerät `…_<name>_erreichbar`, `…_batterie_schwach`, `…_batteriespannung` | Erreichbarkeit, Batterie schwach, Spannung (V); Batterie nur bei den Thermostaten |

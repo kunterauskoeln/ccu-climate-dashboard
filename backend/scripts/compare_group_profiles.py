@@ -1,9 +1,8 @@
 """Read-only check: does each room's heating group hold the same weekly
 profiles as its wall thermostat?
 
-The app writes profiles to the thermostat only. A heating group with a stale
-copy still hands its setpoint to the thermostat, which then ignores its own
-plan (seen 2026-10-30: Arbeitszimmer/Schlafzimmer at 23 instead of 24.5 °C).
+The app writes profiles to the thermostat only, so the group copies go stale
+(saving a group in the CCU WebUI would push its stale plan onto the devices).
 
 Nothing is written to the CCU. Run in the backend container:
 

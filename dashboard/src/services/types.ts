@@ -202,7 +202,9 @@ export interface DeviceHealthState {
   voltage: number | null;
   rssi: number | null;
   duty_cycle: boolean; // the device hit its own airtime limit
-  config_pending: boolean;
+  config_pending: boolean; // CCU still has settings to hand over (briefly normal after a write)
+  config_pending_since?: number | null; // epoch s, first seen pending
+  config_stuck?: boolean; // pending longer than the warn limit (30 min)
 }
 
 export interface DeviceHealth {

@@ -2,9 +2,9 @@
 wall thermostat.
 
 The app writes profiles to the thermostat only, so the group's own copy can go
-stale. The group still hands its setpoint to its members, so a stale group plan
-shows up as a thermostat that ignores its own schedule. Everything here only
-reads except :func:`write_group_days`; the comparison itself is pure.
+stale; saving the group in the CCU WebUI would push that stale plan onto the
+devices. Everything here only reads except :func:`write_group_days`; the
+comparison itself is pure.
 """
 from __future__ import annotations
 

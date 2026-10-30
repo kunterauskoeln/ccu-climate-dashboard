@@ -1,8 +1,8 @@
 """Copy weekly profiles from each wall thermostat into its heating group.
 
 The app has only ever written profiles to the thermostats, so the CCU heating
-groups hold stale plans -- and a group hands its setpoint to the thermostat
-(2026-10-30: Arbeitszimmer at 23/17 °C instead of 24.5 °C). This script makes
+groups hold stale plans. Saving a group in the CCU WebUI would push that stale
+plan onto the thermostats. This script makes
 the group match the thermostat, one profile day at a time, paced like the
 profile transfer (4 s gap, stop at high CCU duty cycle, stop after 3 errors in
 a row), each day confirmed by reading the group back.

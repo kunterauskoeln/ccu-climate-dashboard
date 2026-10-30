@@ -59,6 +59,64 @@ def test_unreadable_device_and_unknown_duty_cycle():
     assert snap.problems == ["Flur: Zustand nicht lesbar"]
 
 
+@pytest.fixture
+def fresh_health():
+    dh.reset()
+    yield
+    dh.reset()
+
+
+def _pending_map(bad_pending=True, flur_unreadable=False):
+    class X(FakeXmlRpc):
+        def get_paramset(self, address, key="VALUES"):
+            if flur_unreadable and address == "WTH_FLUR:0":
+                raise CcuError("timeout")
+            return super().get_paramset(address, key)
+
+    return X({("WTH_BAD:0", "VALUES"): {**WTH, "CONFIG_PENDING": bad_pending},
+              ("WTH_FLUR:0", "VALUES"): {**WTH, "CONFIG_PENDING": True},
+              ("FALMOT1:0", "VALUES"): ACTOR})
+
+
+def test_short_config_pending_is_normal(fresh_health):
+    snap = dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0)
+    snap = dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0 + 29 * 60)
+    assert snap.level == "ok"
+    bad = snap.devices[0]
+    assert bad.config_pending and bad.config_pending_since == 1000.0 and not bad.config_stuck
+
+
+def test_long_config_pending_is_a_problem(fresh_health):
+    dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0)
+    snap = dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0 + 3 * 3600)
+    assert snap.level == "warnung"
+    assert "Bad: Einstellungen seit 3 h nicht übertragen" in snap.problems
+    assert all(d.config_stuck for d in snap.devices[:2])
+
+
+def test_config_pending_clock_restarts_once_gone(fresh_health):
+    dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0)
+    dh.tick(_pending_map(bad_pending=False), FakeJsonRpc(), device_map(), now=2000.0)
+    snap = dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0 + 3 * 3600)
+    assert snap.devices[0].config_pending_since == 1000.0 + 3 * 3600
+    assert not snap.devices[0].config_stuck
+
+
+def test_unreadable_device_keeps_pending_clock(fresh_health):
+    dh.tick(_pending_map(), FakeJsonRpc(), device_map(), now=1000.0)
+    snap = dh.tick(_pending_map(flur_unreadable=True), FakeJsonRpc(), device_map(),
+                   now=1000.0 + 3 * 86400)
+    flur = snap.devices[1]
+    assert flur.reachable is None and flur.config_pending_since == 1000.0 and flur.config_stuck
+    assert "Flur: Einstellungen seit 3 Tagen nicht übertragen" in snap.problems
+
+
+@pytest.mark.parametrize("seconds, text", [(45 * 60, "45 min"), (5 * 3600, "5 h"),
+                                           (49 * 3600, "2 Tagen")])
+def test_duration(seconds, text):
+    assert dh._duration(seconds) == text
+
+
 @pytest.mark.parametrize("interfaces, expected", [
     ([{"dutyCycle": "7", "isDefault": True}], 7),
     ([{"dutyCycle": "50", "isDefault": False}, {"dutyCycle": "2", "isDefault": True}], 2),

@@ -20,6 +20,7 @@ function healthProblems(h: DeviceHealthState): string[] {
   else if (!h.reachable) out.push("nicht erreichbar");
   if (h.low_battery) out.push("Batterie schwach");
   if (h.duty_cycle) out.push("Funk-Limit erreicht");
+  if (h.config_stuck) out.push("Einstellungen werden nicht übertragen");
   return out;
 }
 

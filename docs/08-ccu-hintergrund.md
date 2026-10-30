@@ -94,16 +94,29 @@ Nur dieser Weg funktioniert:
 - Danach **Warten und Polling** (1,5 s Pause, dann alle 2 s bis 25 s): Funkübertragungen
   brauchen Zeit; ein einmaliges Lesen nach 1,5 s meldete fälschlich „nicht bestätigt".
 
+### Ausstehende Konfiguration
+
+Was die CCU per MASTER-Schreiben annimmt, landet zuerst in ihrem **Zwischenspeicher**; das
+Zurücklesen (auch in der CCU-Oberfläche) zeigt diesen Stand. Zum Thermostat geht es erst
+per Funk, bis dahin steht `CONFIG_PENDING` (Kanal `:0`) auf wahr. Steckt im MASTER ein
+**ungültiger Wert**, scheitert die Übertragung dauerhaft, und **alle** späteren Änderungen
+bleiben mit hängen. Beobachtet 2026-10-30: `TEMPERATURE_COMFORT` und
+`TEMPERATURE_LOWERING` als Text (`'21.000000'`) statt Zahl, seit fünf Wochen ausstehend;
+der Thermostat lief mit einem alten Plan. Prüfen: alle MASTER-Werte, die keine Zahl sind.
+Beheben: den Wert per `Interface.putParamset` mit `type: "double"` neu schreiben, danach
+holte sich der Thermostat binnen zwei Minuten alles ab.
+
 ### Heizgruppe
 
 Jeder Raum hat in der CCU zusätzlich eine **Heizgruppe** (`VirtualDevices`, `INT000000x`).
 Sie hält eine **eigene Kopie** der Wochenprofile im MASTER von Kanal `:1`, mit denselben
 Schlüsseln wie der Thermostat (Lesen und Schreiben per JSON-RPC, `interface:
-"VirtualDevices"`). Die Gruppe gibt ihre Solltemperatur an den Thermostat weiter: Eine
-veraltete Gruppenkopie kann den Thermostat von seinem eigenen Plan abbringen
-(beobachtet 2026-10-30, Arbeitszimmer 23 bzw. 17 statt 24,5 °C). Bis v0.35 schrieb die
-Anwendung nur den Thermostat. Vergleich und Abgleich: Skripte `compare_group_profiles.py`
-und `sync_group_profiles.py` ([Betrieb 4.5](04-betrieb-und-wartung.md#45-diagnose--und-hilfsskripte)).
+"VirtualDevices"`). Die Anwendung schreibt nur den Thermostat; die Gruppenkopie veraltet
+deshalb. Ob die Gruppe das Soll des Thermostats übersteuert, ist nicht belegt (der Vorfall
+2026-10-30 lag an einer ausstehenden Konfiguration, siehe oben). Gefährlich wird die alte
+Kopie, wenn jemand die Gruppe in der CCU-Oberfläche speichert: Dann überträgt die CCU deren
+Plan auf die Geräte. Vergleich und Abgleich: Skripte `compare_group_profiles.py` und
+`sync_group_profiles.py` ([Betrieb 4.5](04-betrieb-und-wartung.md#45-diagnose--und-hilfsskripte)).
 
 ## 8.5 Aktivprofil-Zeiger
 

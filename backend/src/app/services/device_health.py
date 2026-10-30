@@ -27,6 +27,8 @@ log = logging.getLogger(__name__)
 
 _lock = threading.Lock()
 _snapshot: Snapshot | None = None
+# address -> first tick that saw CONFIG_PENDING (cleared once it is gone)
+_pending_since: dict[str, float] = {}
 
 
 def _env_int(name: str, default: int) -> int:
@@ -46,6 +48,12 @@ def duty_limit() -> int:
     return _env_int("DUTY_CYCLE_LIMIT", 70)
 
 
+def pending_warn_minutes() -> int:
+    """Minutes CONFIG_PENDING may last before it counts as a problem. Right
+    after any settings or profile write it is set briefly – that is normal."""
+    return _env_int("CONFIG_PENDING_WARN_MINUTES", 30)
+
+
 @dataclass
 class DeviceState:
     name: str
@@ -57,6 +65,10 @@ class DeviceState:
     rssi: int | None
     duty_cycle: bool              # the device itself hit its airtime limit
     config_pending: bool
+    # first seen pending (epoch s, since this app start) and whether that is
+    # longer than pending_warn_minutes(): settings the CCU cannot hand over
+    config_pending_since: float | None = None
+    config_stuck: bool = False
 
 
 @dataclass
@@ -104,9 +116,23 @@ def _de(value: float) -> str:
     return f"{value:.1f}".replace(".", ",")
 
 
+def _duration(seconds: float) -> str:
+    minutes = int(seconds // 60)
+    if minutes < 120:
+        return f"{minutes} min"
+    hours = minutes // 60
+    if hours < 48:
+        return f"{hours} h"
+    return f"{hours // 24} Tagen"
+
+
 def evaluate(now: float, devices: list[DeviceState], ccu_duty: int | None) -> Snapshot:
     problems: list[str] = []
     for d in devices:
+        d.config_stuck = (
+            d.config_pending and d.config_pending_since is not None
+            and now - d.config_pending_since >= pending_warn_minutes() * 60
+        )
         if d.reachable is None:
             problems.append(f"{d.name}: Zustand nicht lesbar")
         elif not d.reachable:
@@ -116,6 +142,9 @@ def evaluate(now: float, devices: list[DeviceState], ccu_duty: int | None) -> Sn
             problems.append(f"{d.name}: Batterie schwach{volts}")
         if d.duty_cycle:
             problems.append(f"{d.name}: Funk-Limit erreicht")
+        if d.config_stuck and d.config_pending_since is not None:
+            problems.append(f"{d.name}: Einstellungen seit "
+                            f"{_duration(now - d.config_pending_since)} nicht übertragen")
     if ccu_duty is not None and ccu_duty >= duty_warn():
         problems.append(f"CCU-Funkauslastung {ccu_duty} %")
     if problems:
@@ -132,8 +161,17 @@ def tick(xmlrpc, jsonrpc, device_map: DeviceMap, now: float | None = None) -> Sn
                for name in device_map.room_names]
     if device_map.actuator_address:
         devices.append(_read_device(xmlrpc, "Aktor", device_map.actuator_address, "aktor"))
-    snap = evaluate(now if now is not None else time.time(), devices,
-                    read_ccu_duty_cycle(jsonrpc))
+    now = now if now is not None else time.time()
+    with _lock:
+        for d in devices:
+            if d.config_pending:
+                d.config_pending_since = _pending_since.setdefault(d.address, now)
+            elif d.reachable is not None:  # unreadable: keep the clock running
+                _pending_since.pop(d.address, None)
+            else:
+                d.config_pending_since = _pending_since.get(d.address)
+                d.config_pending = d.config_pending_since is not None
+    snap = evaluate(now, devices, read_ccu_duty_cycle(jsonrpc))
     with _lock:
         _snapshot = snap
     return snap
@@ -148,3 +186,4 @@ def reset() -> None:
     global _snapshot
     with _lock:
         _snapshot = None
+        _pending_since.clear()

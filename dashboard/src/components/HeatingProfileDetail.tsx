@@ -10,6 +10,7 @@ import { useProfile, useCopyProfile } from "../hooks/useProfiles";
 import { useProfileNames, useSetProfileName } from "../hooks/useProfileNames";
 import { useRooms } from "../hooks/useRooms";
 import { useClimate } from "../hooks/useClimate";
+import { useStuckRooms } from "../hooks/useDeviceHealth";
 import "../styles/styles.css";
 
 const MODE_OPTIONS: { label: string; value: ClimateMode }[] = [
@@ -41,6 +42,7 @@ export default function HeatingProfileDetail() {
   const { data: week } = useProfile(roomName, profileNumber, mode ?? undefined);
   const { data: storedNames } = useProfileNames();
   const { data: rooms = [] } = useRooms();
+  const stuck = useStuckRooms().has(roomName ?? "");
   const setProfileName = useSetProfileName();
   const copyProfile = useCopyProfile(roomName!, profileNumber, mode ?? undefined);
 
@@ -168,6 +170,19 @@ export default function HeatingProfileDetail() {
         </div>
         {whereText && <div className="room-subtitle">{whereText}</div>}
       </div>
+
+      {stuck && (
+        <div className="room-card dew-border-knapp" style={{ gap: "0.4rem" }}>
+          <div className="setting-name">Plan nicht am Thermostat angekommen</div>
+          <div className="room-subtitle">
+            Die CCU kann dem Thermostat seit längerer Zeit keine Einstellungen übertragen.
+            Der Plan hier ist in der CCU gespeichert, der Thermostat arbeitet aber noch mit
+            einem älteren. Abhilfe: am Thermostat kurz die Systemtaste drücken und die
+            Servicemeldungen der CCU prüfen. Steckt ein ungültiger Wert in den Einstellungen,
+            hilft das nicht (siehe Handbuch, CCU-Hintergrund).
+          </div>
+        </div>
+      )}
 
       <div
         className="room-card"

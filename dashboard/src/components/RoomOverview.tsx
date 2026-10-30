@@ -7,6 +7,7 @@ import { modeLabel } from "../lib/modes";
 import { formatTemp, formatHumidity } from "../lib/format";
 import { useRooms, roomsKey } from "../hooks/useRooms";
 import { useProfileNames } from "../hooks/useProfileNames";
+import { useStuckRooms } from "../hooks/useDeviceHealth";
 import ValveBar from "./ValveBar";
 
 export default function RoomOverview() {
@@ -14,6 +15,7 @@ export default function RoomOverview() {
   const queryClient = useQueryClient();
   const { data: rooms = [] } = useRooms();
   const { data: profileNames = {} } = useProfileNames();
+  const stuckRooms = useStuckRooms();
 
   // react-query's refetchOnWindowFocus doesn't fire on bfcache restore
   // (browser back/forward without a real reload) -- catch that case explicitly.
@@ -32,7 +34,7 @@ export default function RoomOverview() {
 
         return (
           <div
-            className="room-card"
+            className={`room-card ${stuckRooms.has(room.room) ? "dew-border-knapp" : ""}`}
             key={room.room}
             onClick={() => navigate(`/room/${encodeURIComponent(room.room)}`)}
             style={{ cursor: "pointer" }}
@@ -72,6 +74,12 @@ export default function RoomOverview() {
             </div>
 
             <ValveBar value={room.valve} />
+
+            {stuckRooms.has(room.room) && (
+              <div className="validation-error" style={{ textAlign: "left", marginTop: 0 }}>
+                Plan nicht am Thermostat angekommen
+              </div>
+            )}
           </div>
         );
       })}

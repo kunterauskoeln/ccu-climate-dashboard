@@ -286,6 +286,15 @@ Gerät sein eigenes Funk-Limit erreicht hat. Dazu kommt die **Funkauslastung der
 (Duty Cycle, in Prozent der erlaubten Sendezeit; bei 100 % sendet die CCU eine Weile
 nichts mehr).
 
+**Einstellungen nicht übertragen.** Nach jeder Änderung meldet die CCU kurz
+„Konfiguration ausstehend“, bis der Thermostat die neuen Daten abgeholt hat; das ist
+normal. Dauert es länger als 30 Minuten (`CONFIG_PENDING_WARN_MINUTES`), wird es ein
+Hinweis („Arbeitszimmer: Einstellungen seit 3 Tagen nicht übertragen“): Der Thermostat
+arbeitet dann noch mit einem älteren Plan, obwohl die App und die CCU den neuen zeigen. Die
+Raumkachel in der Übersicht und die Profilseite des Raums warnen zusätzlich. Abhilfe: am
+Thermostat kurz die Systemtaste drücken. Hilft das nicht, steckt oft ein ungültiger Wert in
+den Einstellungen ([CCU-Hintergrund 8.4](08-ccu-hintergrund.md#84-wochenprofile)).
+
 - Oben auf der Seite stehen die Hinweise und die Funkauslastung; jede Kachel zeigt
   Batteriespannung und Signal, ein Problem in Rot mit gelbem Rand.
 - Gibt es Hinweise, erscheint auf jeder Seite ein gelber Balken („Geräte: Bad: Batterie
