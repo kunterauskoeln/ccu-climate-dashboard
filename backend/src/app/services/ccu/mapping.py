@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -143,12 +144,16 @@ class CachedDeviceMap:
         self._valve_channels = valve_channels
         self._value: DeviceMap | None = None
         self._deadline = 0.0
+        # parallel requests after expiry: one refreshes, the others wait for it
+        self._lock = threading.Lock()
 
     def get(self, *, force: bool = False) -> DeviceMap:
-        if force or self._value is None or time.monotonic() >= self._deadline:
-            self._value = map_from_devices(self._jsonrpc.list_devices(), self._valve_channels)
-            self._deadline = time.monotonic() + self._ttl
-        return self._value
+        with self._lock:
+            if force or self._value is None or time.monotonic() >= self._deadline:
+                self._value = map_from_devices(self._jsonrpc.list_devices(),
+                                               self._valve_channels)
+                self._deadline = time.monotonic() + self._ttl
+            return self._value
 
     def invalidate(self) -> None:
         self._value = None

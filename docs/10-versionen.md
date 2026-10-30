@@ -8,8 +8,15 @@ installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung
 
 - Neues Thema **Weiß**: fast weiße Karten auf hellgrauem Grund, blaue Akzente.
 - Neuer Effekt **Glanz** (*Einstellungen → Design*, Aus/An): Glasknopf-Reflex über Karten
-  und Schaltflächen, mit Erhaben kombinierbar, Stärke je Thema. Wird wie Thema und Erhaben
-  pro Gerät im Browser gespeichert.
+  und Schaltflächen (helle obere Hälfte, Kante in der Mitte, Lichtkante oben), mit Erhaben
+  kombinierbar, Stärke je Thema. Wird wie Thema und Erhaben pro Gerät im Browser
+  gespeichert.
+- **Seiten laden zuverlässig:** Lud eine Seite mehrere Daten gleichzeitig, scheiterten
+  Anfragen oft mit Fehler 500 (bei Messungen ein Großteil) und die Seite musste neu
+  angestoßen werden. Ursache: Alle Anfragen teilten sich eine XML-RPC-Verbindung zur CCU,
+  die keine parallelen Zugriffe verträgt. Jetzt hat jeder Bearbeitungs-Thread seine eigene.
+  Außerdem melden sich gleichzeitige Anfragen nur noch einmal per JSON-RPC an, und die
+  Geräteliste wird nach Ablauf nur einmal neu geholt.
 - **Einstellungen nicht übertragen:** Steht „Konfiguration ausstehend“ an einem Gerät länger
   als 30 Minuten (`CONFIG_PENDING_WARN_MINUTES`), wird es ein Gerätehinweis (Banner,
   Geräteseite, Home Assistant). Raumkachel und Profilseite warnen, dass der gezeigte Plan

@@ -8,6 +8,7 @@ Moving to async httpx is a Phase 2 concern bundled with the API rewrite.
 """
 from __future__ import annotations
 
+import threading
 import time
 
 import requests
@@ -32,6 +33,9 @@ class JsonRpcClient:
         self._timeout = timeout
         self._session_id: str | None = None
         self._session_deadline = 0.0
+        # Request threads share this client: only one may log in / out at a
+        # time, or parallel requests each open a session (the CCU allows few).
+        self._session_lock = threading.RLock()
 
     # -- session ----------------------------------------------------------
     def _login(self) -> None:
@@ -45,18 +49,32 @@ class JsonRpcClient:
         self._session_id = session_id
         self._session_deadline = time.monotonic() + _SESSION_TTL
 
-    def _ensure_session(self) -> None:
-        if not self._session_id or time.monotonic() >= self._session_deadline:
-            self._login()
+    def _ensure_session(self) -> str | None:
+        with self._session_lock:
+            if not self._session_id or time.monotonic() >= self._session_deadline:
+                self._login()
+            return self._session_id
 
     def logout(self) -> None:
-        if not self._session_id:
-            return
-        try:
-            self._post("Session.logout", {}, with_session=True)
-        except CcuError:
-            pass
-        self._session_id = None
+        with self._session_lock:
+            if not self._session_id:
+                return
+            try:
+                self._post("Session.logout", {}, with_session=True)
+            except CcuError:
+                pass
+            self._session_id = None
+
+    def _drop_session(self, used: str | None, *, release: bool) -> None:
+        """Forget the session a failed call used -- unless another thread has
+        already replaced it, whose fresh session must survive."""
+        with self._session_lock:
+            if self._session_id != used:
+                return
+            if release:
+                self.logout()
+            else:
+                self._session_id = None
 
     # -- transport ------------------------------------------------------
     def _post(self, method: str, params: dict, *, with_session: bool) -> object:
@@ -91,14 +109,16 @@ class JsonRpcClient:
     def call(self, method: str, params: dict | None = None, *, retries: int = 2) -> object:
         last_error: Exception | None = None
         for attempt in range(retries + 1):
+            used: str | None = None
             try:
-                self._ensure_session()
+                used = self._ensure_session()
                 return self._post(method, params or {}, with_session=True)
             except CcuMethodError:
                 raise  # valid session, deterministic failure: no retry, keep the session
             except CcuUnreachable as exc:
                 last_error = exc
-                self._session_id = None  # can't reach the CCU to log out either
+                # can't reach the CCU to log out either
+                self._drop_session(used, release=False)
                 if attempt < retries:
                     time.sleep(0.5)
             except CcuError as exc:
@@ -106,7 +126,7 @@ class JsonRpcClient:
                 # Release the CCU session slot *before* dropping it. Just forgetting
                 # the id leaks one CCU session per retry, and the CCU only allows a
                 # handful -> "invalid credentials or too many sessions".
-                self.logout()
+                self._drop_session(used, release=True)
                 if attempt < retries:
                     time.sleep(0.5)
         assert last_error is not None
