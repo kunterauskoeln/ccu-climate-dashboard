@@ -1,5 +1,8 @@
+import pytest
+
 from app.services.ccu import group_profiles as gp
 from app.services.ccu import schedule
+from app.services.ccu.errors import CcuError
 from app.services.ccu.schedule import Block
 
 WORKDAY = [Block(0, 480, 17.0), Block(480, 1020, 24.5), Block(1020, 1440, 17.0)]
@@ -60,6 +63,42 @@ def test_group_master_prefers_channel():
     rpc = _FakeJsonRpc({"INT0000002:1": group})
     assert gp.read_group_master(rpc, "INT0000002") == ("INT0000002:1", group)
     assert len(rpc.calls) == 1
+
+
+class _GroupRpc(_FakeJsonRpc):
+    """putParamset lands in the stored MASTER (as strings, like the CCU),
+    unless *stuck*; records every put."""
+
+    def __init__(self, paramsets, stuck=False):
+        super().__init__(paramsets)
+        self.stuck = stuck
+        self.puts = []
+
+    def put_paramset(self, address, key, typed_set, *, interface="HmIP-RF"):
+        self.puts.append((interface, address, key, typed_set))
+        if not self.stuck:
+            self.paramsets[address].update({s["name"]: s["value"] for s in typed_set})
+
+
+def test_write_group_days_writes_and_confirms(monkeypatch):
+    monkeypatch.setattr(gp.time, "sleep", lambda s: None)
+    rpc = _GroupRpc({"INT0000002:1": _as_strings(_master({"FRIDAY": STALE}))})
+    gp.write_group_days(rpc, "INT0000002:1", 1, {"FRIDAY": WORKDAY})
+
+    assert len(rpc.puts) == 1
+    interface, address, key, typed = rpc.puts[0]
+    assert (interface, address, key) == ("VirtualDevices", "INT0000002:1", "MASTER")
+    assert all(s["name"].startswith("P1_") and s["name"].endswith(
+        tuple(f"FRIDAY_{i}" for i in range(1, 14))) for s in typed)
+    group_now = schedule.blocks_from_master(rpc.paramsets["INT0000002:1"], 1, "FRIDAY")
+    assert group_now == WORKDAY
+
+
+def test_write_group_days_raises_when_group_does_not_take(monkeypatch):
+    monkeypatch.setattr(gp.time, "sleep", lambda s: None)
+    rpc = _GroupRpc({"INT0000002:1": _as_strings(_master({"FRIDAY": STALE}))}, stuck=True)
+    with pytest.raises(CcuError):
+        gp.write_group_days(rpc, "INT0000002:1", 1, {"FRIDAY": WORKDAY}, timeout=0)
 
 
 def test_describe():

@@ -208,6 +208,8 @@ erst mit `--apply` etwas.
 | `import_heating_schedule.py [--apply] <Raum> <datei.json>` | Liest einen fertigen Wochenplan (deutsches JSON-Format, siehe Skriptkopf) in **alle 6 Heizprofile** eines Raumes | nur `data/profile_sets.json`, nie die Geräte |
 | `prepare_heating_sets.py [--apply] [--temp 20] [Räume…]` | Sichert den Kühlsatz vom Gerät und setzt den Heizsatz auf einen Flachwert. Für einen gefahrlosen Test des Moduswechsels | nur `data/profile_sets.json` |
 | `drain_profile_transfer.py [--apply] [--max-days N]` | Überträgt in einem Lauf alles, was ein Moduswechsel aufgeschoben hat (sonst „Jetzt übertragen" in der App, 8 Tage je Lauf) | **ja, Thermostate** (funkschonend) |
+| `compare_group_profiles.py [--room R] [--details]` | Vergleicht je Raum die Wochenprofile von Thermostat und Heizgruppe: aktives Profil, Soll jetzt, was laut beiden Plänen gerade gelten müsste, abweichende Tage | nein (nur CCU lesen) |
+| `sync_group_profiles.py [--apply] [--room R] [--day Mo..So] [--profile N \| --all-profiles]` | Kopiert abweichende Profiltage vom Thermostat in die Heizgruppe, ohne Angabe nur das aktive Profil; Tag für Tag mit Zurücklesen, 4 s Pause, Halt bei hoher Funkauslastung oder 3 Fehlern in Folge | **ja, Heizgruppen** (funkschonend) |
 
 Die Skripte tragen nichts in die Änderungshistorie ein.
 

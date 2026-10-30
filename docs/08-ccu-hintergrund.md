@@ -94,6 +94,17 @@ Nur dieser Weg funktioniert:
 - Danach **Warten und Polling** (1,5 s Pause, dann alle 2 s bis 25 s): Funkübertragungen
   brauchen Zeit; ein einmaliges Lesen nach 1,5 s meldete fälschlich „nicht bestätigt".
 
+### Heizgruppe
+
+Jeder Raum hat in der CCU zusätzlich eine **Heizgruppe** (`VirtualDevices`, `INT000000x`).
+Sie hält eine **eigene Kopie** der Wochenprofile im MASTER von Kanal `:1`, mit denselben
+Schlüsseln wie der Thermostat (Lesen und Schreiben per JSON-RPC, `interface:
+"VirtualDevices"`). Die Gruppe gibt ihre Solltemperatur an den Thermostat weiter: Eine
+veraltete Gruppenkopie kann den Thermostat von seinem eigenen Plan abbringen
+(beobachtet 2026-10-30, Arbeitszimmer 23 bzw. 17 statt 24,5 °C). Bis v0.35 schrieb die
+Anwendung nur den Thermostat. Vergleich und Abgleich: Skripte `compare_group_profiles.py`
+und `sync_group_profiles.py` ([Betrieb 4.5](04-betrieb-und-wartung.md#45-diagnose--und-hilfsskripte)).
+
 ## 8.5 Aktivprofil-Zeiger
 
 Der Thermostat hat **einen** Zeiger `ACTIVE_PROFILE`, den Heizen und Kühlen teilen. Die
@@ -165,6 +176,7 @@ Alle Abfragen ohne Schreibzugriff:
 ```bash
 docker compose exec backend python scripts/dump_ccu.py                 # Thermostate
 docker compose exec backend python scripts/dump_ccu.py Wohnzimmer      # Datenpunkte eines Raums
+docker compose exec backend python scripts/compare_group_profiles.py   # Profile Thermostat vs. Heizgruppe
 ```
 Für eigene Abfragen (Vorsicht: Fehlerfälle belegen CCU-Sitzungen, Abschnitt 8.8):
 ```bash
