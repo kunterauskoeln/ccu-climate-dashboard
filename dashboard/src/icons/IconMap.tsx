@@ -18,6 +18,7 @@ export const ICONS = {
   check: <Icon icon="mdi:check" width="28" />,
   "chevron-up": <Icon icon="mdi:chevron-up" width="28" />,
   devices: <Icon icon="mdi:thermostat-box" width="28" />,
+  esszimmer: <Icon icon="mdi:silverware-fork-knife" width="28" />,
   flur: <Icon icon="mdi:door" width="28" />,
   history: <Icon icon="mdi:history" width="28" />,
   küche: <Icon icon="mdi:stove" width="28" />,
