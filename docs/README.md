@@ -5,7 +5,7 @@ CCU3** (bzw. OpenCCU): Raumübersicht mit Ist-/Soll-Temperatur und Ventilstellun
 Wochenprofile je Raum, getrennte Heiz- und Kühlprofile, mehrere Designs.
 
 Diese Dokumentation beschreibt Aufbau, Installation, Betrieb und Entwicklung des
-Projekts. Sie gilt für den Stand **v0.35.0** (siehe [Versionen](10-versionen.md)).
+Projekts. Sie gilt für den Stand **v0.35.1** (siehe [Versionen](10-versionen.md)).
 
 ## Inhaltsverzeichnis
 
