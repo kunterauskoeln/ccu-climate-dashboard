@@ -10,6 +10,7 @@ import {
   LineElement,
   PointElement,
   Tooltip,
+  type ScriptableContext,
 } from "chart.js";
 import { AppIcon } from "../icons/IconMap";
 import { apiErrorMessage } from "../services/api";
@@ -22,6 +23,12 @@ import "../styles/styles.css";
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
 const VALVE_LABEL = "Ventil";
+
+/** A value without a neighbour draws no line: show it as a dot (first sample, after a pause). */
+function isolatedPointRadius(ctx: ScriptableContext<"line">): number {
+  const values = ctx.dataset.data;
+  return values[ctx.dataIndex - 1] == null && values[ctx.dataIndex + 1] == null ? 3 : 0;
+}
 
 export default function RoomHistory() {
   const navigate = useNavigate();
@@ -63,7 +70,7 @@ export default function RoomHistory() {
         borderColor: colors.plan,
         backgroundColor: colors.plan,
         borderWidth: 2,
-        pointRadius: 0,
+        pointRadius: isolatedPointRadius,
         stepped: true as const,
         spanGaps: false,
       },
@@ -74,7 +81,7 @@ export default function RoomHistory() {
         borderColor: colors.temperature,
         backgroundColor: colors.temperature,
         borderWidth: 2,
-        pointRadius: 0,
+        pointRadius: isolatedPointRadius,
         tension: 0.2,
         spanGaps: false,
       },
@@ -85,7 +92,7 @@ export default function RoomHistory() {
         borderColor: colors.valve,
         backgroundColor: `color-mix(in srgb, ${colors.valve} 22%, transparent)`,
         borderWidth: 1,
-        pointRadius: 0,
+        pointRadius: isolatedPointRadius,
         stepped: true as const,
         fill: "origin" as const,
         spanGaps: false,
@@ -131,7 +138,10 @@ export default function RoomHistory() {
       temperature: {
         position: "left" as const,
         grace: "5%",
-        ticks: { color: colors.text, callback: (v: string | number) => `${v} °C` },
+        ticks: {
+          color: colors.text,
+          callback: (v: string | number) => `${Number(Number(v).toFixed(1))} °C`,
+        },
         grid: { color: colors.grid },
       },
       valve: {
