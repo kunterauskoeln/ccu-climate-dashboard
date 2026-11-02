@@ -230,6 +230,18 @@ export default function Settings() {
 
         <div
           className="room-card"
+          onClick={() => navigate("/settings/room-history")}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="room-header-left">
+            <span className="room-icon"><AppIcon name="thermometer" /></span>
+            <span className="setting-name">Raumverlauf</span>
+          </div>
+          <div className="room-subtitle">Plan, Temperatur und Ventil eines Raums als Kurven</div>
+        </div>
+
+        <div
+          className="room-card"
           onClick={() => navigate("/settings/dew-point")}
           style={{ cursor: "pointer" }}
         >

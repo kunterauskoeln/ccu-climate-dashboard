@@ -18,6 +18,9 @@
   --chart-fill: rgba(30, 64, 175, 0.2);
   --chart-text: #333;
   --chart-grid: rgba(0, 0, 0, 0.12);
+  --chart-plan: #2563eb;
+  --chart-temperature: #ea580c;
+  --chart-valve: #0d9488;
   --bg-image: linear-gradient(135deg, #0a3d8f 0%, #1565c0 55%, #42a5f5 100%);
   --radius-card: 12px;
   --radius-pill: 10px;
@@ -1289,6 +1292,12 @@ input[type="datetime-local"]:disabled {
   flex: 1;
   width: auto;
   text-align: center;
+}
+
+.theme-dark, .theme-wald, .theme-sonne, .theme-graphit, .theme-ozean {
+  --chart-plan: #4a8bea;
+  --chart-temperature: #e26a14;
+  --chart-valve: #109c8e;
 }
 
 .valve-chart {

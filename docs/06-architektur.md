@@ -41,6 +41,7 @@ ccu/
 │   │       ├── apartment.py          Mehrere Räume auf Profile umschalten (Wohnung, Abwesenheit)
 │   │       ├── absence.py            Abwesenheit: Phasen, gemerkte Profile, Hintergrund-Timer
 │   │       ├── valve_history.py      Ventilstellungen alle 5 Minuten, 72 h (Ventilverlauf)
+│   │       ├── room_history.py       Temperatur, Plan, Ventil je Raum, 72 h (Raumverlauf)
 │   │       └── event_bus.py          Vorbereitet für Live-Ereignisse (nicht aktiv)
 │   └── tests/                  Automatische Tests (pytest)
 └── dashboard/
@@ -347,6 +348,7 @@ axios, Chart.js (react-chartjs-2), Iconify.
 | `/settings/backup` | Datensicherung: Export und Import |
 | `/settings/dew-point` | Taupunktüberwachung |
 | `/settings/valves` | Ventilverlauf |
+| `/settings/room-history` | Raumverlauf |
 | `/settings/heating-profiles` | Heizprofile: alle Räume |
 | `/settings/heating-profiles/:raum/:profil` | Profilseite (z. B. `P1`), mit `?mode=heating\|cooling` |
 | `…/:tag` | Tag eines Profils |

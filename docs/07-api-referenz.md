@@ -29,6 +29,7 @@ BASE=http://localhost:3000/api
 | GET | `/system/dew-point` | Taupunktüberwachung (Schnappschuss, jede Minute neu) |
 | GET | `/system/device-health` | Gerätezustand und Funkauslastung (alle 5 Minuten neu) |
 | GET | `/system/valve-history` | Ventilstellungen der letzten Stunden (`?hours=48`, höchstens 72) |
+| GET | `/system/room-history` | Temperatur, Plan und Ventil eines Raumes (`?room=Bad&hours=48`, höchstens 72) |
 | GET | `/system/absence` | Geplante oder laufende Abwesenheit |
 | PUT | `/system/absence` | Abwesenheit planen oder ändern |
 | DELETE | `/system/absence` | Geplante verwerfen bzw. laufende sofort beenden |
@@ -156,6 +157,20 @@ schon ein Auftrag läuft.
 `times` in Sekunden seit 1970, ein Punkt alle 5 Minuten; je Raum die Öffnung in Prozent.
 `null` markiert eine Pause der Aufzeichnung (die App lief nicht). **422** bei `hours`
 außerhalb von 0 bis 72.
+
+### `GET /system/room-history`
+```json
+{
+  "times": [1791000000.0, 1791000300.0, 1791000600.0],
+  "temperature": [21.4, null, 21.6],
+  "plan": [21.0, null, 22.0],
+  "valve": [40, null, 55]
+}
+```
+Parameter `room` (Pflicht) und `hours`. `temperature` und `plan` in °C, `valve` in Prozent.
+`plan` ist der Wert, den das aktive Profil des Thermostats zu diesem Zeitpunkt vorsah. `null`
+markiert einen fehlenden Wert oder eine Pause der Aufzeichnung. **404** bei unbekanntem Raum,
+**422** bei `hours` außerhalb von 0 bis 72.
 
 ### `GET /system/absence`
 ```json

@@ -17,6 +17,7 @@ import type {
   RestoreResult,
   RoomPatch,
   RoomState,
+  RoomHistory,
   ValveHistory,
   TransferState,
   WeekProfile,
@@ -253,6 +254,10 @@ export async function cancelAbsence(): Promise<AbsenceState> {
 }
 
 // ---- valve history ----
+export async function getRoomHistory(room: string, hours: number): Promise<RoomHistory> {
+  return (await http.get("/system/room-history", { params: { room, hours } })).data;
+}
+
 export async function getValveHistory(hours: number): Promise<ValveHistory> {
   return (await http.get("/system/valve-history", { params: { hours } })).data;
 }

@@ -32,6 +32,7 @@ const Backup = lazy(() => import("./components/Backup"));
 const DewPoint = lazy(() => import("./components/DewPoint"));
 const Absence = lazy(() => import("./components/Absence"));
 const ValveHistory = lazy(() => import("./components/ValveHistory"));
+const RoomHistory = lazy(() => import("./components/RoomHistory"));
 
 function LoadingFallback() {
   return <div className="loading" style={{ padding: "2rem", textAlign: "center" }}>Lade...</div>;
@@ -56,6 +57,7 @@ function App() {
               <Route path="/settings/dew-point" element={<DewPoint />} />
               <Route path="/settings/absence" element={<Absence />} />
               <Route path="/settings/valves" element={<ValveHistory />} />
+              <Route path="/settings/room-history" element={<RoomHistory />} />
               <Route path="/settings/devices" element={<Devices />} />
               <Route path="/settings/devices/:deviceId" element={<DeviceDetail />} />
               <Route path="/settings/heating-profiles" element={<HeatingProfiles />} />

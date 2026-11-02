@@ -7,6 +7,7 @@ from app.services import (
     climate_schedule,
     profile_names,
     profile_sets,
+    room_history,
     valve_history,
 )
 from app.services.ccu import profiles as _profiles
@@ -31,6 +32,8 @@ def _data_files_in_tmp(tmp_path, monkeypatch):
     monkeypatch.setattr(absence, "_PATH", str(tmp_path / "absence.json"))
     monkeypatch.setattr(valve_history, "_PATH", str(tmp_path / "valve_history.json"))
     monkeypatch.setattr(valve_history, "_samples", None)
+    monkeypatch.setattr(room_history, "_PATH", str(tmp_path / "room_history.json"))
+    monkeypatch.setattr(room_history, "_samples", None)
 
 
 class FakeXmlRpc:

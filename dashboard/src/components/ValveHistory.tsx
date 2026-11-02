@@ -13,6 +13,7 @@ import {
 import { AppIcon } from "../icons/IconMap";
 import { apiErrorMessage } from "../services/api";
 import { useValveHistory } from "../hooks/useValveHistory";
+import { CHART_RANGES, tickIndices, timeLabel } from "../lib/chartTime";
 import { useTheme } from "../theme/ThemeContext";
 import "../styles/styles.css";
 
@@ -21,28 +22,6 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip,
 // Gut unterscheidbare Farben, fest je Raum (alphabetische Reihenfolge)
 const PALETTE = ["#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4", "#00a6a6", "#c9a400",
   "#f032e6", "#7f7f7f", "#9a6324"];
-const WEEKDAY = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
-const RANGES = [12, 24, 48, 72];
-
-function label(epoch: number): string {
-  const d = new Date(epoch * 1000);
-  const hh = String(d.getHours()).padStart(2, "0");
-  const mm = String(d.getMinutes()).padStart(2, "0");
-  return `${WEEKDAY[d.getDay()]} ${hh}:${mm}`;
-}
-
-/** Index of the first sample at or after every full 6 hours (axis labels). */
-function tickIndices(times: number[], everyHours: number): Set<number> {
-  const out = new Set<number>();
-  let lastBucket = -1;
-  times.forEach((t, i) => {
-    const d = new Date(t * 1000);
-    const bucket = Math.floor((d.getDate() * 24 + d.getHours()) / everyHours);
-    if (bucket !== lastBucket && d.getHours() % everyHours === 0) out.add(i);
-    lastBucket = bucket;
-  });
-  return out;
-}
 
 export default function ValveHistory() {
   const navigate = useNavigate();
@@ -61,7 +40,7 @@ export default function ValveHistory() {
   }, [theme]);
 
   const rooms = data ? Object.keys(data.rooms).sort() : [];
-  const labels = data ? data.times.map(label) : [];
+  const labels = data ? data.times.map(timeLabel) : [];
   // fewer, shorter axis labels on a phone so they do not overlap
   const narrow = typeof window !== "undefined" && window.innerWidth < 600;
   const every = narrow ? (hours > 24 ? 12 : 6) : (hours > 24 ? 6 : 3);
@@ -131,7 +110,7 @@ export default function ValveHistory() {
 
       <div className="room-card card-wide" style={{ gap: "0.6rem" }}>
         <div className="valve-range">
-          {RANGES.map((h) => (
+          {CHART_RANGES.map((h) => (
             <button
               key={h}
               className={`profile-mini-card-vertical ${h === hours ? "active-profile" : ""}`}

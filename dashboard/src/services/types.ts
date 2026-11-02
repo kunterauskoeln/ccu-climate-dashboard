@@ -228,6 +228,14 @@ export interface AbsenceState {
   message: string;
 }
 
+/** Room history (GET /system/room-history): columns of one room. */
+export interface RoomHistory {
+  times: number[]; // epoch seconds, every 5 minutes
+  temperature: (number | null)[]; // °C; null: missing or recording paused
+  plan: (number | null)[]; // °C
+  valve: (number | null)[]; // percent
+}
+
 /** Valve history (GET /system/valve-history): one column per room, percent. */
 export interface ValveHistory {
   times: number[]; // epoch seconds, every 5 minutes

@@ -64,6 +64,7 @@ roter Text unter dem Ventilbalken.
 | **Betriebsart** | Umschalten zwischen **Heizen** und **Kühlen**, auch automatisch zu festen Zeitpunkten (5.6) |
 | **Abwesenheit** | Alle Räume für eine Zeit auf ein Profil, danach automatisch zurück (5.14) |
 | **Ventilverlauf** | Ventilöffnung aller Räume über die letzten Stunden als Grafik (5.15) |
+| **Raumverlauf** | Plan, Temperatur und Ventil eines Raums in einer Grafik (5.16) |
 | **Taupunkt** | Kondensgefahr beim Kühlen je Raum (5.13) |
 | **Datensicherung** | Export und Import aller Daten der App (5.12) |
 | **Design** | Thema und Erhaben-Effekt (5.10) |
@@ -477,3 +478,17 @@ ist es der Mittelwert.
 Lesen lässt sich daraus zum Beispiel, wann ein Raum tatsächlich heizt, ob ein Profil zu
 früh oder zu spät vorheizt, oder ob ein Raum ständig voll aufgedreht ist (Hinweis auf
 zu hohe Solltemperatur oder einen schwachen Heizkreis).
+
+## 5.16 Raumverlauf
+
+*Einstellungen → Raumverlauf* zeigt für einen Raum in einer Grafik:
+
+- **Plan** (Stufenlinie): was das zu diesem Zeitpunkt aktive Profil vorsah, linke Achse. Von
+  Hand gesetzte Werte erscheinen hier nicht.
+- **Temperatur** (Linie): die gemessene Raumtemperatur, linke Achse.
+- **Ventil** (Fläche): die Öffnung von 0 bis 100 %, rechte Achse. Bei mehreren Heizkreisen ist
+  es der Mittelwert.
+
+Oben wählst du den Zeitraum (**12 h** bis **72 h**), unten den **Raum**. Ein Tipp auf einen
+Eintrag der Legende blendet ihn aus oder ein. Die App zeichnet alle 5 Minuten auf und bewahrt
+3 Tage auf; die Grafik füllt sich also erst nach dem ersten Start dieser Version.

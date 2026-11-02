@@ -142,6 +142,7 @@ Projekt, die Profilsätze leer.
 | `climate_schedule.json` | Zeitplan für das automatische Umschalten Heizen/Kühlen und das Ergebnis des letzten Laufs (fehlt, solange nie gespeichert) | App |
 | `backups/ccu-auto-<datum>.json` | Tägliche Sicherung im Export-Format, die letzten 14 | App (jede Nacht) |
 | `valve_history.json` | Ventilstellungen aller Räume, alle 5 Minuten, die letzten 72 Stunden (für den Ventilverlauf) | App |
+| `room_history.json` | Temperatur, Plan und Ventilstellung je Raum, alle 5 Minuten, die letzten 72 Stunden (für den Raumverlauf) | App |
 | `absence.json` | Geplante oder laufende Abwesenheit samt den gemerkten Profilen je Raum (fehlt, solange nie eine geplant wurde) | App |
 | `vor-import-<datum-uhrzeit>.json` | Stand vor einem Import, im Export-Format | App (Import) |
 

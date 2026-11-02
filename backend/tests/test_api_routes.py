@@ -1157,6 +1157,18 @@ def test_copying_the_running_profile_into_another_slot_uses_the_device_plan(clie
 
 
 # --- valve history -------------------------------------------------------------------
+def test_room_history_endpoint(client):
+    import time
+
+    from app.services import room_history
+    room_history.record({"Wohnzimmer": (22.0, 21.0, 0.5)}, now=time.time() - 600)
+    body = client.get("/system/room-history", params={"room": "Wohnzimmer"}).json()
+    assert body["temperature"] == [22.0] and body["plan"] == [21.0] and body["valve"] == [50]
+    assert client.get("/system/room-history",
+                      params={"room": "Wohnzimmer", "hours": 100}).status_code == 422
+    assert client.get("/system/room-history", params={"room": "Keller"}).status_code == 404
+
+
 def test_valve_history_endpoint(client):
     import time
 

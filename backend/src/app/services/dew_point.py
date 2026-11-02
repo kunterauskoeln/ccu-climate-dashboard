@@ -276,15 +276,19 @@ def _loop() -> None:
             cache["at"] = time.monotonic()
         return xmlrpc, cache["map"]
 
-    from . import device_health, ha_publish, valve_history
+    from . import device_health, ha_publish, room_history, valve_history
 
     rounds = 0
     while True:
         try:
             snap = tick(clients)
-            # every 5th round (5 min): valve history, device health
+            # every 5th round (5 min): valve and room history, device health
             if rounds % _HEALTH_EVERY == 0:
                 valve_history.record({r.room: r.valve for r in snap.rooms})
+                try:
+                    room_history.collect(xmlrpc, clients()[1], snap.rooms)
+                except Exception:
+                    log.warning("room history round failed", exc_info=True)
                 try:
                     device_health.tick(xmlrpc, jsonrpc, clients()[1])
                 except Exception:

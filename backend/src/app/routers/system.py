@@ -26,6 +26,7 @@ from app.services import (
     dew_point,
     flow_sensor,
     profile_transfer,
+    room_history,
     valve_history,
 )
 from app.services.ccu import climate
@@ -237,3 +238,14 @@ def get_valve_history(hours: float = 48):
     if not 0 < hours <= valve_history.KEEP_HOURS:
         raise CcuValidationError(f"hours muss zwischen 0 und {valve_history.KEEP_HOURS} liegen")
     return valve_history.series(hours)
+
+
+@router.get("/room-history", response_model=room_history.Series)
+def get_room_history(room: str, hours: float = 48):
+    """Temperature, plan (°C) and valve (percent) of one room over the last
+    *hours* (max 72), one point every 5 minutes; ``null`` where a value is
+    missing or the recording paused."""
+    if not 0 < hours <= room_history.KEEP_HOURS:
+        raise CcuValidationError(f"hours muss zwischen 0 und {room_history.KEEP_HOURS} liegen")
+    get_device_map().get().room(room)  # 404 for an unknown room
+    return room_history.series(room, hours)
