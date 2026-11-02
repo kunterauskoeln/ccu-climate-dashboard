@@ -73,6 +73,19 @@ def _save(data: dict) -> None:
         json.dump(data, handle, indent=2, ensure_ascii=False)
 
 
+def export() -> dict | None:
+    """The stored absence for the export; ``None`` if there is none."""
+    return load() or None
+
+
+def restore(data: dict) -> None:
+    """Take over an absence from a checked import. Whether its rooms are on the
+    right profile is unknown here, so its current phase is applied once more."""
+    with _lock:
+        _save({**data, "previous": dict(data.get("previous") or {}), "applied": False,
+               "attempts": 0, "message": "Aus der Datensicherung übernommen"})
+
+
 def _parse(value: str) -> datetime:
     stamp = datetime.fromisoformat(value)
     return stamp if stamp.tzinfo else stamp.replace(tzinfo=climate_schedule.tz())

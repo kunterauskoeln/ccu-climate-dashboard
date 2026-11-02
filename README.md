@@ -32,9 +32,10 @@ network.
 - Change history with "reset to here", export/import with strict validation, nightly
   backups
 - Dew point monitoring for floor cooling (flow temperature via MQTT), device health
-  (batteries, reachability, CCU duty cycle), valve history chart (up to 72 h)
+  (batteries, reachability, CCU duty cycle), valve history and per-room history (plan,
+  temperature, valve) charts (up to 72 h)
 - Home Assistant entities via MQTT discovery (e.g. for push notifications)
-- Seven themes, works on phone, tablet and desktop
+- Eight themes with optional gloss effect, works on phone, tablet and desktop
 
 ## Hardware
 

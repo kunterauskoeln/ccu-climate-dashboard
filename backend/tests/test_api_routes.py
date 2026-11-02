@@ -1008,6 +1008,106 @@ def test_import_of_an_older_export_keeps_the_schedule(client):
     profile_transfer.join(timeout=3)
 
 
+def _absence(phase="geplant", days=2, **overrides):
+    from datetime import datetime, timedelta
+
+    from app.services import climate_schedule
+    now = datetime.now(climate_schedule.tz())
+    data = {
+        "phase": phase, "profile": 2,
+        "start": (now + timedelta(days=days - 1)).isoformat(timespec="minutes"),
+        "end": (now + timedelta(days=days)).isoformat(timespec="minutes"),
+        "previous": {"Wohnzimmer": 1} if phase != "geplant" else {},
+        "applied": True, "attempts": 2, "message": "alt",
+    }
+    data.update(overrides)
+    return data
+
+
+def test_export_contains_the_absence(client):
+    from app.services import absence
+    assert client.get("/export").json()["absence"] is None
+    planned = _absence()
+    absence._save(planned)
+    assert client.get("/export").json()["absence"] == planned
+
+
+def test_import_takes_over_an_absence_still_ahead(client):
+    from app.services import absence
+    planned = _absence()
+    body = client.post("/import?apply=true", json=_export_doc(absence=planned)).json()
+    assert body["absence"] == "replace" and body["applied"]
+    stored = absence.load()
+    assert stored["phase"] == "geplant" and stored["end"] == planned["end"]
+    assert stored["applied"] is False and stored["attempts"] == 0
+    profile_transfer.join(timeout=3)
+
+
+def test_import_of_a_running_absence_applies_it_again_and_says_so(client):
+    from app.services import absence
+    running = _absence("aktiv", start="2026-01-01T08:00+01:00")
+    body = client.post("/import?apply=true", json=_export_doc(absence=running)).json()
+    assert body["absence"] == "replace"
+    assert any("umgeschaltet" in w for w in body["warnings"])
+    stored = absence.load()
+    assert stored["phase"] == "aktiv" and stored["previous"] == {"Wohnzimmer": 1}
+    assert stored["applied"] is False
+    profile_transfer.join(timeout=3)
+
+
+@pytest.mark.parametrize("old", [
+    _absence("aktiv", days=-1),      # its end has passed: would switch every room back
+    _absence("geplant", days=-1),
+    _absence("rueckkehr"),
+    _absence("beendet", days=-1),
+    _absence("abgebrochen"),
+    None,
+])
+def test_import_of_a_finished_or_missing_absence_changes_nothing(client, old):
+    from app.services import absence
+    planned = _absence(days=5)
+    absence._save(planned)
+    doc = _export_doc(absence=old) if old is not None else _export_doc()
+    body = client.post("/import?apply=true", json=doc).json()
+    assert body["absence"] == "keep" and body["applied"]
+    assert absence.load() == planned
+    profile_transfer.join(timeout=3)
+
+
+def test_import_never_replaces_a_running_absence(client):
+    from app.services import absence
+    running = _absence("aktiv")
+    absence._save(running)
+    body = client.post("/import?apply=true", json=_export_doc(absence=_absence())).json()
+    assert body["absence"] == "keep"
+    assert any("läuft eine Abwesenheit" in w for w in body["warnings"])
+    assert absence.load() == running
+    profile_transfer.join(timeout=3)
+
+
+def test_import_dry_run_does_not_touch_the_absence(client):
+    from app.services import absence
+    body = client.post("/import", json=_export_doc(absence=_absence())).json()
+    assert body["absence"] == "replace" and not body["applied"]
+    assert absence.load() == {}
+
+
+@pytest.mark.parametrize("broken", [
+    "kaputt",
+    {"phase": "irgendwas"},
+    _absence(profile=9),
+    _absence(profile=True),
+    _absence(previous={"Bad": 7}),
+    _absence(end="morgen"),
+])
+def test_import_rejects_a_broken_absence(client, broken):
+    from app.services import absence
+    r = client.post("/import?apply=true", json=_export_doc(absence=broken)).json()
+    assert not r["valid"] and not r["applied"]
+    assert any("Abwesenheit" in e for e in r["errors"])
+    assert absence.load() == {}
+
+
 def test_import_rejects_a_broken_schedule(client):
     broken = {
         "heating": {"day": 31, "month": 4, "time": "08:00", "enabled": True},

@@ -1,8 +1,8 @@
 """Export and import of everything the app itself stores (not the CCU's own data).
 
 One JSON document: heating/cooling profile sets, profile names, the valve
-channel mapping, the schedule of the automatic heating/cooling switch and the
-change history. The CCU credentials (backend/.env)
+channel mapping, the schedule of the automatic heating/cooling switch, the
+absence and the change history. The CCU credentials (backend/.env)
 are deliberately not part of it -- an export file gets copied around.
 
 Import is a dry run unless ``?apply=true``: the document is checked
@@ -42,6 +42,7 @@ class ImportResult:
     names: int
     valve_rooms: int
     schedule: str  # "replace" | "clear" | "keep"
+    absence: str = "keep"  # "replace": the file's absence is taken over
     backup_file: str | None = None
     transfer_started: bool = False
 
@@ -70,6 +71,7 @@ def import_data(doc: dict = Body(...), apply: bool = False):  # noqa: B008
         valid=checked.valid, applied=False, errors=checked.errors,
         warnings=checked.warnings, rooms=checked.rooms, profiles=checked.profiles,
         names=checked.names, valve_rooms=checked.valve_rooms, schedule=checked.schedule,
+        absence=checked.absence,
     )
     if not apply or not checked.valid:
         return result

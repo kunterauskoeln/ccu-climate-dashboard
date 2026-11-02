@@ -101,6 +101,8 @@ sie dauerhaft aus haben will, nimmt `docker compose down`.
 | `data/valve_channels.json` | Deine Ventil-Zuordnung |
 | `data/change_history.json` | Änderungshistorie |
 | `data/climate_schedule.json` | Zeitplan für das automatische Umschalten |
+| `data/absence.json` | Geplante oder laufende Abwesenheit samt gemerkten Profilen |
+| `data/valve_history.json`, `data/room_history.json` | Messwerte der letzten 72 Stunden. Fehlen sie, füllen sich die Verläufe von selbst neu. **Nur** in dieser Ordnersicherung enthalten, nicht im Export der App |
 
 Kurz: `backend/.env` und der ganze Ordner `data/`. (Die Datendateien ohne `.env` lassen
 sich auch in der App herunterladen und dort wieder einlesen: *Einstellungen →

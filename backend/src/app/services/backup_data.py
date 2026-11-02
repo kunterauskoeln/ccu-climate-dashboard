@@ -10,6 +10,11 @@ schedule of the automatic heating/cooling switch, and clears the
 change history -- its before-states describe the thermostats before the import
 and would no longer fit.
 
+An absence in the file is taken over only if it still lies ahead or is still
+running (see :func:`_check_absence`), and never over one running right now, whose
+remembered profiles the rooms need to get back. Anything else leaves the current
+absence alone: restoring an old backup must not switch any room by itself.
+
 The CCU credentials are never part of an export, and an import never touches
 them.
 """
@@ -20,7 +25,7 @@ import os
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 
-from . import change_history, climate_schedule, profile_names, profile_sets
+from . import absence, change_history, climate_schedule, profile_names, profile_sets
 from .ccu import schedule
 from .ccu.profiles import SETPOINT_MAX, SETPOINT_MIN
 
@@ -47,6 +52,7 @@ def build_export(valve_channels: dict[str, list[int]]) -> dict:
         "profile_names": profile_names.load(),
         "valve_channels": valve_channels,
         "climate_schedule": climate_schedule.export(),
+        "absence": absence.export(),
         "change_history": change_history.entries(),
     }
 
@@ -66,6 +72,7 @@ class ImportCheck:
     @property
     def valid(self) -> bool:
         return not self.errors
+    absence: str = "keep"   # "replace": the file's absence is taken over
 
 
 def _is_int(value: object) -> bool:
@@ -217,9 +224,53 @@ def _check_schedule(doc: dict, result: ImportCheck) -> None:
             result.schedule = "replace"
 
 
-def check(doc: object, known_rooms: list[str] | None) -> ImportCheck:
+def _check_absence(doc: dict, now: datetime, result: ImportCheck) -> None:
+    """Decide what happens to the absence (``result.absence``), see the module docstring."""
+    raw = doc.get("absence")
+    if raw is None or raw == {}:
+        return                                       # none in the file, or an older export
+    if not isinstance(raw, dict):
+        result.errors.append("Abwesenheit: ungültiger Eintrag")
+        return
+    phase = raw.get("phase")
+    if phase in ("beendet", "abgebrochen"):
+        return
+    if phase not in ("geplant", "aktiv", "rueckkehr"):
+        result.errors.append(f"Abwesenheit: unbekannte Phase „{phase}“")
+        return
+    profile = raw.get("profile")
+    if isinstance(profile, bool) or profile not in schedule.PROFILE_RANGE:
+        result.errors.append(f"Abwesenheit: ungültiges Profil {profile!r}")
+    previous = raw.get("previous", {})
+    if not isinstance(previous, dict) or any(
+            isinstance(p, bool) or p not in schedule.PROFILE_RANGE for p in previous.values()):
+        result.errors.append("Abwesenheit: ungültige gemerkte Profile")
+    try:
+        start = absence._parse(raw["start"])
+        end = absence._parse(raw["end"])
+    except (KeyError, TypeError, ValueError):
+        result.errors.append("Abwesenheit: Beginn oder Ende nicht lesbar")
+        return
+    if not result.valid:
+        return
+    if phase == "rueckkehr" or end <= now:
+        result.warnings.append(f"Die Abwesenheit in der Datei ist vorbei (Ende "
+                               f"{end:%d.%m.%Y %H:%M}) – sie wird nicht übernommen.")
+        return
+    if absence.load().get("phase") in ("aktiv", "rueckkehr"):
+        result.warnings.append("Gerade läuft eine Abwesenheit – sie bleibt, die Abwesenheit aus "
+                               "der Datei wird nicht übernommen.")
+        return
+    result.absence = "replace"
+    if phase == "aktiv" or start <= now:
+        result.warnings.append(f"Die Abwesenheit aus der Datei läuft bis {end:%d.%m.%Y %H:%M}: "
+                               f"Nach dem Import werden die Räume auf ihr Profil umgeschaltet.")
+
+
+def check(doc: object, known_rooms: list[str] | None, now: datetime | None = None) -> ImportCheck:
     """Validate an export document completely. *known_rooms* are the rooms the
     CCU has right now (None: unknown -- then no room warnings)."""
+    now = now or datetime.now(climate_schedule.tz())
     result = ImportCheck()
     if not isinstance(doc, dict):
         result.errors.append("Die Datei enthält kein JSON-Objekt.")
@@ -237,6 +288,7 @@ def check(doc: object, known_rooms: list[str] | None) -> ImportCheck:
     _check_names(doc.get("profile_names"), result)
     _check_valves(doc.get("valve_channels"), result)
     _check_schedule(doc, result)
+    _check_absence(doc, now, result)
 
     if known_rooms is None:
         result.warnings.append("Die Räume konnten nicht mit der CCU abgeglichen werden.")
@@ -282,3 +334,5 @@ def apply(doc: dict, checked: ImportCheck) -> None:
         climate_schedule.configure(points["heating"], points["cooling"])
     elif checked.schedule == "clear":
         climate_schedule.clear()
+    if checked.absence == "replace":
+        absence.restore(doc["absence"])

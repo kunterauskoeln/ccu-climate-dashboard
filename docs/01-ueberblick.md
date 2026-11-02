@@ -24,6 +24,8 @@ gespeicherten Plänen weiter.**
 | Heizen und Kühlen | Systemweite **Betriebsart** (Heizen/Kühlen). Heiz- und Kühlprofile sind **getrennte, dauerhaft gespeicherte Datensätze**; der jeweils inaktive lässt sich ohne Umschalten bearbeiten |
 | Übertragung | Beim Umschalten und beim Profilwechsel schreibt ein Hintergrundauftrag die gespeicherten Pläne auf die Thermostate (funkschonend, mit Fortschrittsanzeige) |
 | Änderungshistorie | Profiländerungen im aktiven Modus und Umbenennungen werden mit Zeitpunkt protokolliert; „bis hierhin zurücksetzen" nimmt einen Eintrag und alle neueren zurück, auch auf den Thermostaten |
+| Abwesenheit | Alle Räume für einen Zeitraum auf ein Profil, danach zurück auf das jeweils vorherige |
+| Verläufe | **Ventilverlauf** aller Räume und **Raumverlauf** (Plan, Temperatur, Ventil eines Raums) als Grafik, bis zu 72 Stunden |
 | Taupunkt | Im Kühlbetrieb Taupunkt je Raum gegen die Vorlauftemperatur (MQTT-Sensor), Ampel und Warnbalken bei Kondensgefahr |
 | Home Assistant | Zustand per MQTT-Discovery als Gerät „CCU Dashboard“, z. B. für Push-Nachrichten bei Kondensgefahr |
 | Geräte | Liste aller angelernten Geräte (Adresse, Typ, Schnittstelle) |

@@ -16,7 +16,8 @@ const SCHEDULE_TEXT: Record<ImportResult["schedule"], string> = {
 
 function summary(result: ImportResult): string {
   return `${result.rooms} Räume, ${result.profiles} Profile, ${result.names} Profilnamen, ` +
-    `${result.valve_rooms} Ventil-Zuordnungen, ${SCHEDULE_TEXT[result.schedule]}`;
+    `${result.valve_rooms} Ventil-Zuordnungen, ${SCHEDULE_TEXT[result.schedule]}` +
+    (result.absence === "replace" ? ", Abwesenheit" : "");
 }
 
 function formatWhen(epochSeconds: number): string {
@@ -145,9 +146,9 @@ export default function Backup() {
           <span className="setting-name">Export</span>
         </div>
         <div className="room-subtitle">
-          Alle Daten der App als Datei: Heiz- und Kühlprofile, Profilnamen, Ventil-Zuordnung,
-          Zeitplan für das automatische Umschalten und Änderungshistorie. Ohne
-          CCU-Zugangsdaten.
+          Die Einstellungen der App als Datei: Heiz- und Kühlprofile, Profilnamen,
+          Ventil-Zuordnung, Zeitplan für das automatische Umschalten, Abwesenheit und
+          Änderungshistorie. Ohne CCU-Zugangsdaten und ohne die Messwerte der Verläufe.
         </div>
         <button
           className="profile-mini-card-vertical"
@@ -168,8 +169,9 @@ export default function Backup() {
         <div className="room-subtitle">
           Liest eine Export-Datei ein. Sie wird zuerst vollständig geprüft; übernommen wird
           erst nach Bestätigung. Ersetzt Profile, Profilnamen, Ventil-Zuordnung und den
-          Zeitplan für das automatische Umschalten und löscht die Änderungshistorie. Der
-          bisherige Stand wird vorher im Datenordner gesichert.
+          Zeitplan für das automatische Umschalten und löscht die Änderungshistorie. Eine
+          Abwesenheit wird nur übernommen, wenn sie noch nicht vorbei ist und gerade keine
+          andere läuft. Der bisherige Stand wird vorher im Datenordner gesichert.
         </div>
 
         <input

@@ -66,8 +66,8 @@ roter Text unter dem Ventilbalken.
 | **Ventilverlauf** | Ventilöffnung aller Räume über die letzten Stunden als Grafik (5.15) |
 | **Raumverlauf** | Plan, Temperatur und Ventil eines Raums in einer Grafik (5.16) |
 | **Taupunkt** | Kondensgefahr beim Kühlen je Raum (5.13) |
-| **Datensicherung** | Export und Import aller Daten der App (5.12) |
-| **Design** | Thema und Erhaben-Effekt (5.10) |
+| **Datensicherung** | Export und Import der Einstellungen der App (5.12) |
+| **Design** | Thema, Erhaben und Glanz (5.10) |
 
 ## 5.5 Wochenprofile bearbeiten
 
@@ -312,17 +312,20 @@ den Einstellungen ([CCU-Hintergrund 8.4](08-ccu-hintergrund.md#84-wochenprofile)
 
 ### Export
 
-**Export herunterladen** speichert eine Datei `ccu-export-<datum>.json` mit allen Daten,
-die die App selbst hält:
+**Export herunterladen** speichert eine Datei `ccu-export-<datum>.json` mit den
+Einstellungen, die die App selbst hält:
 
 - Heiz- und Kühlprofile aller Räume, samt dem zuletzt aktiven Profil je Betriebsart,
 - Profilnamen,
 - Ventil-Zuordnung,
 - Zeitplan für das automatische Umschalten (beide Zeitpunkte samt Haken),
+- Abwesenheit samt den gemerkten Profilen,
 - Änderungshistorie.
 
 **Nicht enthalten** sind die CCU-Zugangsdaten (`backend/.env`), damit die Datei gefahrlos
-weitergegeben oder abgelegt werden kann, und die Daten der CCU selbst.
+weitergegeben oder abgelegt werden kann, die Daten der CCU selbst und die Messwerte von
+Ventil- und Raumverlauf: Sie reichen nur 72 Stunden zurück und füllen sich von selbst neu.
+Design und Glanz speichert jeder Browser für sich, auch sie fehlen in der Datei.
 
 ### Import
 
@@ -345,6 +348,11 @@ weitergegeben oder abgelegt werden kann, und die Daten der CCU selbst.
      erst der nächste Zeitpunkt; ein Import schaltet also nie selbst um. Enthält die
      Datei keinen gesetzten Zeitplan, wird der bestehende entfernt. Ältere Exporte ohne
      Zeitplan lassen ihn unverändert (Hinweis bei der Prüfung).
+   - die Abwesenheit, aber nur wenn sie in der Datei noch geplant oder aktiv und nicht vorbei
+     ist und gerade keine andere läuft. Sonst bleibt die bestehende unverändert, auch bei
+     älteren Exporten ohne Abwesenheit, damit eine alte Sicherung keine Räume umschaltet. Ist
+     die Abwesenheit aus der Datei schon gestartet, schaltet die App die Räume nach dem
+     Import auf ihr Profil (Hinweis bei der Prüfung).
 
    und **löscht die Änderungshistorie** (ihre Vorher-Stände passen nicht mehr). Die
    Änderungshistorie aus der Datei wird nicht übernommen.

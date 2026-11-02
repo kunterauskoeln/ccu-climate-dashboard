@@ -127,6 +127,7 @@ export interface ImportResult {
   // automatic heating/cooling switch: "replace" (file has one), "clear" (file has
   // none set), "keep" (older export without it -- the current one stays)
   schedule: "replace" | "clear" | "keep";
+  absence: "replace" | "keep"; // "replace": the file's absence is taken over
   backup_file: string | null; // copy of the previous state in the data directory
   transfer_started: boolean;
 }

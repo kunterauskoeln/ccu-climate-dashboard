@@ -497,6 +497,7 @@ Antwort mit `Content-Disposition: attachment; filename="ccu-export-<datum>.json"
     "heating": { "day": 15, "month": 9, "time": "08:00", "enabled": false },
     "cooling": { "day": 15, "month": 5, "time": "07:30", "enabled": true }
   },
+  "absence": null,
   "change_history": [ … ]
 }
 ```
@@ -520,12 +521,15 @@ wird nur geprüft. Antwort (auch bei ungültiger Datei Status 200):
   "errors": [],
   "warnings": ["Für „Keller“ enthält die Datei keine Profile – …"],
   "rooms": 7, "profiles": 12, "names": 6, "valve_rooms": 7, "schedule": "replace",
+  "absence": "keep",
   "backup_file": "vor-import-2026-09-30-091502.json",
   "transfer_started": true
 }
 ```
 - `errors`: alle Fehler mit Fundstelle; ist die Liste nicht leer, ist `valid` false und
   es wurde nichts geschrieben, auch nicht mit `apply=true`.
+- `absence`: `replace` (Abwesenheit aus der Datei wird übernommen: noch geplant oder aktiv,
+  nicht vorbei, und gerade läuft keine andere) oder `keep` (die bestehende bleibt).
 - `schedule`: `replace` (Zeitplan aus der Datei wird übernommen; bis jetzt vergangene
   Zeitpunkte gelten als erledigt), `clear` (Datei hat keinen gesetzten Zeitplan, der
   bestehende wird entfernt), `keep` (älterer Export ohne `climate_schedule`, der bestehende

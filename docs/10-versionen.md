@@ -4,6 +4,13 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
+## v0.36.1: Abwesenheit in der Datensicherung
+
+- Export und tägliche Sicherung enthalten jetzt die **Abwesenheit** samt gemerkten Profilen.
+  Beim Import wird sie nur übernommen, wenn sie noch nicht vorbei ist und gerade keine andere
+  läuft; eine alte Sicherung schaltet so keine Räume um. Ältere Exporte bleiben lesbar.
+- Doku berichtigt: Der Export enthält die Einstellungen, nicht die Messwerte der Verläufe.
+
 ## v0.36.0: Raumverlauf
 
 - Neue Seite **Raumverlauf** (*Einstellungen*): Plan, Temperatur und Ventilöffnung eines Raums
