@@ -274,7 +274,8 @@ Zurück-Pfeil selbst verlassen.
 - **Erhaben:** **Aus**, **Leicht**, **Stark**. Karten und Schaltflächen erhalten Lichtkante,
   Schatten und leichten Verlauf; Schaltflächen wirken beim Tippen eingedrückt.
 - **Glanz:** **Aus** oder **An**. Legt einen Lichtreflex wie auf Glas über Karten und
-  Schaltflächen; lässt sich mit jeder Erhaben-Stufe kombinieren.
+  Schaltflächen; lässt sich mit jeder Erhaben-Stufe kombinieren. Die Karten mit den Grafiken
+  von Ventil- und Raumverlauf bleiben ohne Reflex, damit er die Kurven nicht verdeckt.
 
 ## 5.11 Geräte
 

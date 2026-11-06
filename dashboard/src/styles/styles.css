@@ -293,6 +293,11 @@
   box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, var(--gloss-edge));
 }
 
+/* Karten mit Grafik: der Reflex läge als grauer Streifen hinter den Kurven */
+.gloss-on .room-card.chart-card {
+  background-image: var(--elev-gradient, none);
+}
+
 /* Ventilöffnung (Raumkachel + Raumdetail) */
 .valve-bar {
   display: flex;

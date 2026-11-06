@@ -4,6 +4,11 @@ Jede abgeschlossene Änderung wird als Git-Tag `v0.N.0` markiert. Den Stand eine
 installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung zeigt
 `git tag -n1`.
 
+## v0.36.2: Grafiken ohne Glanz
+
+- Ventil- und Raumverlauf: Die Karte mit der Grafik bekommt keinen Glanz mehr. Der Reflex lag
+  als grauer Streifen hinter der unteren Hälfte der Kurven.
+
 ## v0.36.1: Abwesenheit in der Datensicherung
 
 - Export und tägliche Sicherung enthalten jetzt die **Abwesenheit** samt gemerkten Profilen.

@@ -108,7 +108,7 @@ export default function ValveHistory() {
         <span className="back-right"><AppIcon name="verlauf" /></span>
       </div>
 
-      <div className="room-card card-wide" style={{ gap: "0.6rem" }}>
+      <div className="room-card card-wide chart-card" style={{ gap: "0.6rem" }}>
         <div className="valve-range">
           {CHART_RANGES.map((h) => (
             <button
