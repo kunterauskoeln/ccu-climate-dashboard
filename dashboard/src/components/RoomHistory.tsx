@@ -4,7 +4,6 @@ import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
-  Filler,
   Legend,
   LinearScale,
   LineElement,
@@ -20,7 +19,7 @@ import { CHART_RANGES, tickIndices, timeLabel } from "../lib/chartTime";
 import { useTheme } from "../theme/ThemeContext";
 import "../styles/styles.css";
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
 const VALVE_LABEL = "Ventil";
 
@@ -90,11 +89,10 @@ export default function RoomHistory() {
         data: data?.valve ?? [],
         yAxisID: "valve",
         borderColor: colors.valve,
-        backgroundColor: `color-mix(in srgb, ${colors.valve} 22%, transparent)`,
-        borderWidth: 1,
+        backgroundColor: colors.valve,
+        borderWidth: 2,
         pointRadius: isolatedPointRadius,
         stepped: true as const,
-        fill: "origin" as const,
         spanGaps: false,
       },
     ],

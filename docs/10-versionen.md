@@ -10,6 +10,7 @@ installierst du mit `./deploy.sh <tag>`; die Liste der Tags mit Kurzbeschreibung
   Beim Import wird sie nur übernommen, wenn sie noch nicht vorbei ist und gerade keine andere
   läuft; eine alte Sicherung schaltet so keine Räume um. Ältere Exporte bleiben lesbar.
 - Doku berichtigt: Der Export enthält die Einstellungen, nicht die Messwerte der Verläufe.
+- Raumverlauf: Das Ventil ist eine Linie statt einer ausgefüllten Fläche.
 
 ## v0.36.0: Raumverlauf
 

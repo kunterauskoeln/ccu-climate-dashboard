@@ -494,7 +494,7 @@ zu hohe Solltemperatur oder einen schwachen Heizkreis).
 - **Plan** (Stufenlinie): was das zu diesem Zeitpunkt aktive Profil vorsah, linke Achse. Von
   Hand gesetzte Werte erscheinen hier nicht.
 - **Temperatur** (Linie): die gemessene Raumtemperatur, linke Achse.
-- **Ventil** (Fläche): die Öffnung von 0 bis 100 %, rechte Achse. Bei mehreren Heizkreisen ist
+- **Ventil** (Stufenlinie): die Öffnung von 0 bis 100 %, rechte Achse. Bei mehreren Heizkreisen ist
   es der Mittelwert.
 
 Oben wählst du den Zeitraum (**12 h** bis **72 h**), unten den **Raum**. Ein Tipp auf einen
